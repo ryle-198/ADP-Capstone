@@ -17,6 +17,13 @@ public class Customer {
         this.address = address;
     }
 
+    public Customer(Builder builder){
+        this.customerId = builder.customerId;
+        this.customerName = builder.customerName;
+        this.phoneNumber = builder.phoneNumber;
+        this.address = builder.address;
+    }
+
     public String getCustomerId() {
         return customerId;
     }
@@ -33,21 +40,6 @@ public class Customer {
         return address;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     @Override
     public String toString() {
@@ -57,5 +49,46 @@ public class Customer {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    public static class Builder {
+        private String customerId;
+        private String customerName;
+        private String phoneNumber;
+        private String address;
+
+
+        public Builder setCustomerId(String customerId) {
+            this.customerId = customerId;
+            return this;
+        }
+
+        public Builder setCustomerName(String customerName) {
+            this.customerName = customerName;
+            return this;
+        }
+
+        public Builder setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public Builder setAddress(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder copy(Customer customer){
+            this.customerId = customer.customerId;
+            this.customerName = customer.customerName;
+            this.phoneNumber = customer.phoneNumber;
+            this.address = customer.address;
+
+            return this;
+        }
+        public Customer build(){
+            return new Customer(this);
+        }
+
     }
 }
