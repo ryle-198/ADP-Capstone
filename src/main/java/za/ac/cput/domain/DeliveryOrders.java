@@ -12,7 +12,7 @@ public class DeliveryOrders {
         InTransit,
         OutForDelivery,
         Delivered
-    };
+    }
 
     public enum PaymentStatus{
         PENDING,
@@ -21,7 +21,7 @@ public class DeliveryOrders {
         FAILED,
         REVOKED,
         CANCELLED
-    };
+    }
 
     private String orderId;
     private String customerId;
@@ -91,6 +91,20 @@ public class DeliveryOrders {
 
     public String getSpecialInstructions() {
         return specialInstructions;
+    }
+
+    @Override
+    public String toString() {
+        return "DeliveryOrders{" +
+                "orderId='" + orderId + '\'' +
+                ", customerId='" + customerId + '\'' +
+                ", orderDate=" + orderDate +
+                ", deliveryDate=" + deliveryDate +
+                ", deliveryStatus=" + deliveryStatus +
+                ", paymentStatus=" + paymentStatus +
+                ", totalCost=" + totalCost +
+                ", specialInstructions='" + specialInstructions + '\'' +
+                '}';
     }
 
     public static class Builder{
