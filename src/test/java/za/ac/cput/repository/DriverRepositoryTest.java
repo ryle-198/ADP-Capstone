@@ -1,18 +1,19 @@
-package za.ac.cput.repository.impl;
+package za.ac.cput.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Driver;
 import za.ac.cput.factory.DriverFactory;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DriverRepositoryImplTest {
-    private DriverRepositoryImpl repository;
+public class DriverRepositoryTest {
+    private DriverRepository repository;
     private Driver driver;
 
     @BeforeEach
     void setUp() {
-        repository = DriverRepositoryImpl.getInstance();
+        repository = DriverRepository.getInstance();
         driver = DriverFactory.buildDriver(
                 "Peter", "Burger", "LIC123456", "0821234567", true);
     }

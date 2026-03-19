@@ -1,18 +1,18 @@
-package za.ac.cput.repository.impl;
+package za.ac.cput.repository;
 
 import za.ac.cput.domain.Driver;
-import za.ac.cput.repository.IDriverRepository;
+
 import java.util.HashMap;
 
-public class DriverRepositoryImpl implements IDriverRepository {
+public class DriverRepository implements IDriverRepository {
     private final HashMap<String, Driver> store = new HashMap<>();
-    private static DriverRepositoryImpl instance;
+    private static DriverRepository instance;
 
-    private DriverRepositoryImpl() {}
+    private DriverRepository() {}
 
-    public static DriverRepositoryImpl getInstance() {
+    public static DriverRepository getInstance() {
         if (instance == null)
-            instance = new DriverRepositoryImpl();
+            instance = new DriverRepository();
         return instance;
     }
 
