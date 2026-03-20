@@ -13,8 +13,8 @@ public class CustomerFactory {
            Helper.isEmptyOrNull(phoneNumber) ||
            Helper.isEmptyOrNull(address))
         {
-            return null
-                    ;
+            return null;
+
         }
 
         return new Customer.Builder()
