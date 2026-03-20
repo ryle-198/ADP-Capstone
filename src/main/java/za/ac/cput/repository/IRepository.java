@@ -14,8 +14,6 @@ public interface IRepository <T, ID> {
     //delete
     boolean delete(ID id);
 
-    Set<T> getAll();
-    //getAll
 
 }
 
