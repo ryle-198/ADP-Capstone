@@ -1,5 +1,6 @@
 package za.ac.cput.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class DeliveryOrders {
@@ -25,8 +26,8 @@ public class DeliveryOrders {
 
     private String orderId;
     private String customerId;
-    private Date orderDate;
-    private Date deliveryDate;
+    private LocalDate orderDate;
+    private LocalDate deliveryDate;
     private Status deliveryStatus;
     private PaymentStatus paymentStatus;
     private float totalCost;
@@ -35,8 +36,8 @@ public class DeliveryOrders {
     public DeliveryOrders() {
     }
 
-    public DeliveryOrders(String orderId, String customerId, Date orderDate,
-                          Date deliveryDate, Status deliveryStatus, PaymentStatus paymentStatus,
+    public DeliveryOrders(String orderId, String customerId, LocalDate orderDate,
+                          LocalDate deliveryDate, Status deliveryStatus, PaymentStatus paymentStatus,
                           float totalCost, String specialInstructions) {
 
         this.orderId = orderId;
@@ -69,11 +70,11 @@ public class DeliveryOrders {
         return customerId;
     }
 
-    public Date getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public Date getDeliveryDate() {
+    public LocalDate getDeliveryDate() {
         return deliveryDate;
     }
 
@@ -110,8 +111,8 @@ public class DeliveryOrders {
     public static class Builder{
         private String orderId;
         private String customerId;
-        private Date orderDate;
-        private Date deliveryDate;
+        private LocalDate orderDate;
+        private LocalDate deliveryDate;
         private Status deliveryStatus;
         private PaymentStatus paymentStatus;
         private float totalCost;
@@ -127,12 +128,12 @@ public class DeliveryOrders {
             return this;
         }
 
-        public Builder setOrderDate(Date orderDate){
+        public Builder setOrderDate(LocalDate orderDate){
             this.orderDate=orderDate;
             return this;
         }
 
-        public Builder setDeliveryDate(Date deliveryDate){
+        public Builder setDeliveryDate(LocalDate deliveryDate){
             this.deliveryDate=deliveryDate;
             return this;
         }

@@ -4,6 +4,8 @@ import org.junit.jupiter.api.*;
 import za.ac.cput.domain.DeliveryOrders;
 import za.ac.cput.factory.DeliveryOrdersFactory;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,9 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class DeliveryOrdersRepositoryTest {
 
-    static Date orderDate = new Date(2026,03,15);
-    static Date deliveryDate = new Date(2027,03,20);
-
+    static LocalDate orderDate = LocalDate.of(2026,Month.MARCH,25);
+    static LocalDate deliveryDate = LocalDate.of(2026,Month.APRIL,1);
 
     static DeliveryOrders.Status deliveryStatus = DeliveryOrders.Status.OrderPlaced;
     static DeliveryOrders.PaymentStatus paymentStatus = DeliveryOrders.PaymentStatus.PENDING;

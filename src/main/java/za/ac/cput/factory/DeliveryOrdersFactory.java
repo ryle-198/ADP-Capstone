@@ -3,13 +3,14 @@ package za.ac.cput.factory;
 import za.ac.cput.domain.DeliveryOrders;
 import za.ac.cput.util.Helper;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class DeliveryOrdersFactory {
     public static DeliveryOrders createDeliveryOrder(String orderId, String customerId,
-                                                            Date orderDate,Date deliveryDate,
-                                                            DeliveryOrders.Status deliveryStatus, DeliveryOrders.PaymentStatus paymentStatus,
-                                                            float totalCost, String specialInstructions){
+                                                     LocalDate orderDate, LocalDate deliveryDate,
+                                                     DeliveryOrders.Status deliveryStatus, DeliveryOrders.PaymentStatus paymentStatus,
+                                                     float totalCost, String specialInstructions){
 
         if(Helper.isEmptyOrNull(orderId)||
            Helper.isEmptyOrNull(customerId) ||
