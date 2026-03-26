@@ -44,6 +44,7 @@ public class VehicleRepositoryTest {
         Vehicle created = repository.create(vehicle);
         assertNotNull(created);
         assertEquals(vehicle.getVehicleId(), created.getVehicleId());
+        System.out.println("Create: "+created);
     }
 
     @Test
@@ -52,6 +53,7 @@ public class VehicleRepositoryTest {
         Vehicle read = repository.read(vehicle.getVehicleId());
         assertNotNull(read);
         assertEquals(vehicle.getVehicleId(), read.getVehicleId());
+        System.out.println("Read: "+ read);
     }
 
     @Test
@@ -72,6 +74,7 @@ public class VehicleRepositoryTest {
 
         assertNotNull(result);
         assertEquals("CAA13690", result.getNumberPlate());
+        System.out.println("Update: "+result);
     }
 
     @Test

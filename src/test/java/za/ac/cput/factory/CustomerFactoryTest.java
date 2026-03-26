@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CustomerFactoryTest {
     @Test
     void createCustomer_Success() {
-        Customer customer = CustomerFactory.createCustomer("CUST-23451", "Yamkela", "0732510842"
+        Customer customer = CustomerFactory.createCustomer("CUST-23451"
+                , "Yamkela", "0732510842"
                 ,"yamkela197@gmail.com"
                 ,"14 Aquarius Av Sandrift Milnerton 7441");
 
@@ -20,12 +21,7 @@ public class CustomerFactoryTest {
         assertEquals("14 Aquarius Av Sandrift Milnerton 7441",customer.getAddress());
         System.out.println("created customer successfully");
     }
-    /*@Test
-    void create_InvalidPhoneNumber() {
-        Customer customer = CustomerFactory.createCustomer("CUST-23451", "Yamkela", "1234",
-                "14 Aquarius Av Sandrift Milnerton 7441");
-        assertNull(customer);
-    }*/
+
     @Test
     void createCustomer_NullValues() {
         Customer customer = CustomerFactory.createCustomer(null, "Yamkela","0732510842"

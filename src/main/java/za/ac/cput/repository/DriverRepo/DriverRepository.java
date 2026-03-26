@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DriverRepository implements IDriverRepository {
-//    private final HashMap<String, Driver> store = new HashMap<>();
-//    private final HashMap<String, Driver> store;
+
     private List<Driver> store;
     private static DriverRepository instance;
 
@@ -23,14 +22,12 @@ public class DriverRepository implements IDriverRepository {
 
     @Override
     public Driver create(Driver driver) {
-//        store.put(driver.getId(), driver);
         store.add(driver);
         return driver;
     }
 
     @Override
     public Driver read(String id) {
-//
         for(Driver drivers:store){
             if(drivers.getId().equals(id)){
                 return drivers;

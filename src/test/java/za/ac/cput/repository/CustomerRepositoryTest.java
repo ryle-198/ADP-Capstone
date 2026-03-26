@@ -21,6 +21,7 @@ public class CustomerRepositoryTest {
                 ,"yamkela197@gmail.com"
                 ,"14 Aquarius Av Sandrift Milnerton 7441");
     }
+
     @Test
     void b_testCreate() {
        Customer created = repository.create(customer);
@@ -32,6 +33,7 @@ public class CustomerRepositoryTest {
 
     @Test
     void c_testRead() {
+        repository.create(customer);
         Customer read = repository.read(customer.getCustomerId());
         assertNotNull(read);
         assertEquals(customer.getCustomerId(), read.getCustomerId());
@@ -40,6 +42,7 @@ public class CustomerRepositoryTest {
 
     @Test
     void d_testUpdate() {
+        repository.create(customer);
         Customer updated = new Customer.Builder()
                 .copy(customer)
                 .setCustomerName("The updated name is: ")
@@ -54,6 +57,7 @@ public class CustomerRepositoryTest {
     @Test
     @Disabled
     void e_testDelete() {
+        repository.create(customer);
         boolean deleted = repository.delete(customer.getCustomerId());
         assertTrue(deleted);
         assertNull(repository.read(customer.getCustomerId()));

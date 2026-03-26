@@ -39,6 +39,7 @@ class DeliveryOrdersRepositoryTest {
 
     @Test
     void c_read() {
+        repository.create(order1);
         DeliveryOrders read = repository.read(order1.getOrderId());
         assertEquals(order1.getOrderId(), read.getOrderId());
         System.out.println("Order: "+"\n"+read+"\n");
@@ -46,6 +47,7 @@ class DeliveryOrdersRepositoryTest {
 
     @Test
     void d_update() {
+        repository.create(order1);
         DeliveryOrders newDeliveryOrder = new DeliveryOrders.Builder()
                 .copy(order1)
                 .setSpecialInstructions("Drop off in front of the door")
@@ -60,6 +62,7 @@ class DeliveryOrdersRepositoryTest {
     @Test
     @Disabled
     void e_delete() {
+        repository.create(order1);
         boolean deleted= repository.delete(order1.getOrderId());
         assertTrue(deleted);
         System.out.println("Deleted: "+ deleted);

@@ -27,6 +27,7 @@ class RouteRepositoryTest {
 
     @Test
     void b_read() {
+        repository.create(route);
         Route read = repository.read(route.getRouteId());
         assertEquals(route.getRouteId(), read.getRouteId());
         System.out.println("Read: " + read);
@@ -34,6 +35,7 @@ class RouteRepositoryTest {
 
     @Test
     void c_update() {
+        repository.create(route);
         Route newRoute = new Route.Builder().copy(route)
                 .setDistance(95.7f)
                 .build();
@@ -45,6 +47,7 @@ class RouteRepositoryTest {
     @Test
     @Disabled
     void d_delete() {
+        repository.create(route);
         boolean deleted = repository.delete(route.getRouteId());
         assertTrue(deleted);
         System.out.println("Deleted: " + deleted);

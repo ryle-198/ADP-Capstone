@@ -36,7 +36,7 @@ public class ShipmentRepositoryTest {
         Shipment created = repository.create(shipment);
         assertNotNull(created);
         assertEquals("SHP001", created.getShipmentId());
-        System.out.println(created);
+        System.out.println("Created: "+created);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class ShipmentRepositoryTest {
         Shipment found = repository.read("SHP001");
         assertNotNull(found);
         assertEquals("SHP001", found.getShipmentId());
-        System.out.println(found);
+        System.out.println("Read: "+found);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class ShipmentRepositoryTest {
         assertNotNull(result);
         assertEquals("Durban", result.getDestinationAddress());
         assertEquals(Shipment.Status.DELIVERED, result.getStatus());
-        System.out.println(updated);
+        System.out.println("Update: "+updated);
     }
 
     @Test
@@ -81,6 +81,6 @@ public class ShipmentRepositoryTest {
     @Test
     void f_testGetAll(){
         List<Shipment> allShipments = repository.getAllShipments();
-        System.out.println(allShipments);
+        System.out.println("All Shipments:"+"\n"+allShipments);
     }
 }

@@ -26,7 +26,7 @@ public class DriverRepositoryTest {
         Driver created = repository.create(driver);
         assertNotNull(created);
         assertEquals(driver.getId(), created.getId());
-        System.out.println(created);
+        System.out.println("Driver Created"+"\n"+created);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class DriverRepositoryTest {
         Driver read = repository.read(driver.getId());
         assertNotNull(read);
         assertEquals(driver.getId(), read.getId());
-        System.out.println(read);
+        System.out.println("Read: "+"\n"+read);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class DriverRepositoryTest {
         Driver result = repository.update(updated);
         assertNotNull(result);
         assertEquals("Jane", result.getFirstName());
-        System.out.println(updated);
+        System.out.println("Updated Driver: "+"\n"+updated);
     }
 
     @Test
@@ -66,6 +66,6 @@ public class DriverRepositoryTest {
     @Test
     void f_testGetAllDrivers() {
         List<Driver> allDrivers = repository.getAllDrivers();
-        System.out.println("All Drivers: "+ allDrivers);
+        System.out.println("All Drivers: "+"\n"+allDrivers);
     }
 }
