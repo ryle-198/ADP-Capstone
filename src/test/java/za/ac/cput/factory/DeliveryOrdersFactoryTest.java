@@ -30,6 +30,7 @@ class DeliveryOrdersFactoryTest {
                 deliveryStatus, paymentStatus,
                 19990.0f,"no special instructions"
         );
+        assertNotNull(order1);
     }
 
     @Test
