@@ -26,6 +26,7 @@ public class ShipmentFactoryTest {
         assertEquals("Johannesburg", shipment.getDestinationAddress());
         assertEquals(Shipment.Status.IN_TRANSIT, shipment.getStatus());
         assertTrue(shipment.isFragile());
+        System.out.println("successfully created shipment");
     }
 
     @Test
