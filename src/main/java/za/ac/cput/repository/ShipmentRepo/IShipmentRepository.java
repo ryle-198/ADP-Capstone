@@ -1,6 +1,7 @@
-package za.ac.cput.repository;
+package za.ac.cput.repository.ShipmentRepo;
 
 import za.ac.cput.domain.Shipment;
+import za.ac.cput.repository.IRepository;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package za.ac.cput.repository;
+package za.ac.cput.repository.DeliveryOrdersRepo;
 
 import za.ac.cput.domain.DeliveryOrders;
 

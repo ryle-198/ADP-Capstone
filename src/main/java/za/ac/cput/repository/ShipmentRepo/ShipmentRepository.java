@@ -1,13 +1,11 @@
-package za.ac.cput.repository;
+package za.ac.cput.repository.ShipmentRepo;
 
 
 
 import za.ac.cput.domain.Shipment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ShipmentRepository implements IShipmentRepository{
 

@@ -1,6 +1,7 @@
-package za.ac.cput.repository;
+package za.ac.cput.repository.RouteRepo;
 
 import za.ac.cput.domain.Route;
+import za.ac.cput.repository.IRepository;
 
 import java.util.List;
 

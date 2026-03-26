@@ -1,11 +1,9 @@
-package za.ac.cput.repository;
+package za.ac.cput.repository.CustomerRepo;
 
 import za.ac.cput.domain.Customer;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class CustomerRepository implements ICustomerRepository {
 

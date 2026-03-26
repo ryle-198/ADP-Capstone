@@ -5,6 +5,7 @@ package za.ac.cput.repository;
 import org.junit.jupiter.api.*;
 import za.ac.cput.domain.Shipment;
 import za.ac.cput.factory.ShipmentFactory;
+import za.ac.cput.repository.ShipmentRepo.ShipmentRepository;
 
 import java.util.List;
 

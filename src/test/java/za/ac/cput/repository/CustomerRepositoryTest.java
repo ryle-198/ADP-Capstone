@@ -3,6 +3,7 @@ package za.ac.cput.repository;
 import org.junit.jupiter.api.*;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.factory.CustomerFactory;
+import za.ac.cput.repository.CustomerRepo.CustomerRepository;
 
 import java.util.List;
 

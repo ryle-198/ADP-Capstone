@@ -1,6 +1,8 @@
-package za.ac.cput.repository;
+package za.ac.cput.repository.VehicleRepo;
 
 import za.ac.cput.domain.Vehicle;
+import za.ac.cput.repository.IRepository;
+
 import java.util.List;
 
 

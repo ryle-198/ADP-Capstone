@@ -11,6 +11,7 @@ Date:2026
 import org.junit.jupiter.api.*;
 import za.ac.cput.domain.Vehicle;
 import za.ac.cput.factory.VehicleFactory;
+import za.ac.cput.repository.VehicleRepo.VehicleRepository;
 
 import java.time.LocalDate;
 import java.util.List;
