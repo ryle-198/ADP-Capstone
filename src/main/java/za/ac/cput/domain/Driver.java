@@ -53,6 +53,16 @@ public class Driver {
         public Builder setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; return this; }
         public Builder setAvailability(boolean availability) { this.availability = availability; return this; }
 
+        public Builder copy(Driver driver) {
+            this.id=driver.id;
+            this.firstName=driver.firstName;
+            this.lastName=driver.lastName;
+            this.licenseNumber=driver.licenseNumber;
+            this.phoneNumber=driver.phoneNumber;
+            this.availability= driver.availability;
+            return this;
+        }
+
         public Driver build() { return new Driver(this); }
     }
 }
