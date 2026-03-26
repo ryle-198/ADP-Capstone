@@ -18,6 +18,7 @@ public class CustomerFactoryTest {
         assertEquals("0732510842",customer.getPhoneNumber());
         assertEquals("yamkela197@gmail.com", customer.getEmail() );
         assertEquals("14 Aquarius Av Sandrift Milnerton 7441",customer.getAddress());
+        System.out.println("created customer successfully");
     }
     /*@Test
     void create_InvalidPhoneNumber() {
@@ -31,6 +32,7 @@ public class CustomerFactoryTest {
                 ,"yamkela197@gmail.com"
                 ,"14 Aquarius Av Sandrift Milnerton 7441");
         assertNull(customer);
+        System.out.println("customer has null value");
     }
 
 }
