@@ -1,5 +1,8 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 
 /*
@@ -8,7 +11,7 @@ Delivery Orders module class
 Author: Ryle Peter May (230333907)
 Date: 2026
  */
-
+@Entity
 public class DeliveryOrders {
 
     public enum Status{
@@ -29,7 +32,7 @@ public class DeliveryOrders {
         REVOKED,
         CANCELLED
     }
-
+    @Id
     private String orderId;
     private String customerId;
     private LocalDate orderDate;
