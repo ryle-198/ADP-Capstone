@@ -4,16 +4,26 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.DeliveryOrders;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+/*
+DeliveryOrdersFactoryTest.java
+Delivery Orders module class
+Author: Ryle Peter May (230333907)
+Date: 2026
+ */
 
 class DeliveryOrdersFactoryTest {
 
     DeliveryOrders order1;
 
-    Date orderDate = new Date(2026,03,15);
-    Date deliveryDate = new Date(2027,03,20);
+    LocalDate orderDate = LocalDate.of(2026, Month.MARCH, 25);
+    LocalDate deliveryDate = LocalDate.of(2026, Month.APRIL, 1);
+
+
 
     DeliveryOrders.Status deliveryStatus = DeliveryOrders.Status.OrderPlaced;
     DeliveryOrders.PaymentStatus paymentStatus = DeliveryOrders.PaymentStatus.PENDING;
@@ -27,6 +37,7 @@ class DeliveryOrdersFactoryTest {
                 deliveryStatus, paymentStatus,
                 19990.0f,"no special instructions"
         );
+        assertNotNull(order1);
     }
 
     @Test

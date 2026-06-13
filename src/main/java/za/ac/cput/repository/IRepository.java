@@ -9,6 +9,7 @@ public interface IRepository <T, ID> {
     T update(T t);
     //delete
     boolean delete(ID id);
-    //getAll
+
+
 }
 

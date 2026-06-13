@@ -1,6 +1,13 @@
 package za.ac.cput.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
+
+/*
+DeliveryOrders.java
+Delivery Orders module class
+Author: Ryle Peter May (230333907)
+Date: 2026
+ */
 
 public class DeliveryOrders {
 
@@ -25,8 +32,8 @@ public class DeliveryOrders {
 
     private String orderId;
     private String customerId;
-    private Date orderDate;
-    private Date deliveryDate;
+    private LocalDate orderDate;
+    private LocalDate deliveryDate;
     private Status deliveryStatus;
     private PaymentStatus paymentStatus;
     private float totalCost;
@@ -35,8 +42,8 @@ public class DeliveryOrders {
     public DeliveryOrders() {
     }
 
-    public DeliveryOrders(String orderId, String customerId, Date orderDate,
-                          Date deliveryDate, Status deliveryStatus, PaymentStatus paymentStatus,
+    public DeliveryOrders(String orderId, String customerId, LocalDate orderDate,
+                          LocalDate deliveryDate, Status deliveryStatus, PaymentStatus paymentStatus,
                           float totalCost, String specialInstructions) {
 
         this.orderId = orderId;
@@ -69,11 +76,11 @@ public class DeliveryOrders {
         return customerId;
     }
 
-    public Date getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public Date getDeliveryDate() {
+    public LocalDate getDeliveryDate() {
         return deliveryDate;
     }
 
@@ -110,8 +117,8 @@ public class DeliveryOrders {
     public static class Builder{
         private String orderId;
         private String customerId;
-        private Date orderDate;
-        private Date deliveryDate;
+        private LocalDate orderDate;
+        private LocalDate deliveryDate;
         private Status deliveryStatus;
         private PaymentStatus paymentStatus;
         private float totalCost;
@@ -127,12 +134,12 @@ public class DeliveryOrders {
             return this;
         }
 
-        public Builder setOrderDate(Date orderDate){
+        public Builder setOrderDate(LocalDate orderDate){
             this.orderDate=orderDate;
             return this;
         }
 
-        public Builder setDeliveryDate(Date deliveryDate){
+        public Builder setDeliveryDate(LocalDate deliveryDate){
             this.deliveryDate=deliveryDate;
             return this;
         }
@@ -153,6 +160,19 @@ public class DeliveryOrders {
          }
         public Builder setSpecialInstructions(String specialInstructions){
             this.specialInstructions=specialInstructions;
+            return this;
+        }
+
+        public Builder copy(DeliveryOrders order){
+            this.orderId=order.orderId;
+            this.customerId=order.customerId;
+            this.orderDate=order.orderDate;
+            this.deliveryDate=order.deliveryDate;
+            this.deliveryStatus=order.deliveryStatus;
+            this.paymentStatus=order.paymentStatus;
+            this.totalCost=order.totalCost;
+            this.specialInstructions=order.specialInstructions;
+
             return this;
         }
 
