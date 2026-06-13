@@ -10,7 +10,7 @@ Delivery Orders module class
 Author: Ryle Peter May (230333907)
 Date: 2026
  */
-
+@Deprecated
 public interface IDeliveryOrdersRepository extends IRepository<DeliveryOrders , String> {
     List<DeliveryOrders> getAllOrders();
 }
