@@ -8,7 +8,7 @@ import za.ac.cput.service.DeliveryOrdersService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")//to-do
+@RequestMapping("/deliveryOrders")//to-do
 public class DeliveryOrdersController {
     private DeliveryOrdersService service;
 
@@ -35,7 +35,7 @@ public class DeliveryOrdersController {
         return this.service.delete(deliveryOrderId);
     }
 
-    @GetMapping("/getAllDeliveryOrders")
+    @GetMapping("/getAll")
     public List<DeliveryOrders> getAllDeliveryOrders(){
         return this.service.getAllDeliveryOrders();
     }
