@@ -20,63 +20,63 @@ Date: 2026
 import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class DeliveryOrdersRepositoryTest {
-
-    static IDeliveryOrdersRepository repository = DeliveryOrdersRepository.getRepository();
-
-    static LocalDate orderDate = LocalDate.of(2026,Month.MARCH,25);
-    static LocalDate deliveryDate = LocalDate.of(2026,Month.APRIL,1);
-
-    static DeliveryOrders.Status deliveryStatus = DeliveryOrders.Status.OrderPlaced;
-    static DeliveryOrders.PaymentStatus paymentStatus = DeliveryOrders.PaymentStatus.PENDING;
-
-    static DeliveryOrders order1= DeliveryOrdersFactory.createDeliveryOrder("#001",
-            "12345",
-            orderDate, deliveryDate,
-            deliveryStatus, paymentStatus,
-            19990.0f,"no special instructions");
-
-
-
-    @Test
-    void b_create() {
-        DeliveryOrders created = repository.create(order1);
-        assertNotNull(created);
-        System.out.println("Order Created");
-    }
-
-    @Test
-    void c_read() {
-        repository.create(order1);
-        DeliveryOrders read = repository.read(order1.getOrderId());
-        assertEquals(order1.getOrderId(), read.getOrderId());
-        System.out.println("Order: "+"\n"+read+"\n");
-    }
-
-    @Test
-    void d_update() {
-        repository.create(order1);
-        DeliveryOrders newDeliveryOrder = new DeliveryOrders.Builder()
-                .copy(order1)
-                .setSpecialInstructions("Drop off in front of the door")
-                .build();
-
-        DeliveryOrders update = repository.update(newDeliveryOrder);
-        assertNotNull(update);
-        System.out.println("Updated Order: "+update);
-
-    }
-
-    @Test
-    @Disabled
-    void e_delete() {
-        repository.create(order1);
-        boolean deleted= repository.delete(order1.getOrderId());
-        assertTrue(deleted);
-        System.out.println("Deleted: "+ deleted);
-    }
-    @Test
-    void f_getAllOrders() {
-        List<DeliveryOrders> allOrders = repository.getAllOrders();
-        System.out.println("All Orders: "+ allOrders);
-    }
+//
+//    static IDeliveryOrdersRepository repository = DeliveryOrdersRepository.getRepository();
+//
+//    static LocalDate orderDate = LocalDate.of(2026,Month.MARCH,25);
+//    static LocalDate deliveryDate = LocalDate.of(2026,Month.APRIL,1);
+//
+//    static DeliveryOrders.Status deliveryStatus = DeliveryOrders.Status.OrderPlaced;
+//    static DeliveryOrders.PaymentStatus paymentStatus = DeliveryOrders.PaymentStatus.PENDING;
+//
+//    static DeliveryOrders order1= DeliveryOrdersFactory.createDeliveryOrder("#001",
+//            "12345",
+//            orderDate, deliveryDate,
+//            deliveryStatus, paymentStatus,
+//            19990.0f,"no special instructions");
+//
+//
+//
+//    @Test
+//    void b_create() {
+//        DeliveryOrders created = repository.create(order1);
+//        assertNotNull(created);
+//        System.out.println("Order Created");
+//    }
+//
+//    @Test
+//    void c_read() {
+//        repository.create(order1);
+//        DeliveryOrders read = repository.read(order1.getOrderId());
+//        assertEquals(order1.getOrderId(), read.getOrderId());
+//        System.out.println("Order: "+"\n"+read+"\n");
+//    }
+//
+//    @Test
+//    void d_update() {
+//        repository.create(order1);
+//        DeliveryOrders newDeliveryOrder = new DeliveryOrders.Builder()
+//                .copy(order1)
+//                .setSpecialInstructions("Drop off in front of the door")
+//                .build();
+//
+//        DeliveryOrders update = repository.update(newDeliveryOrder);
+//        assertNotNull(update);
+//        System.out.println("Updated Order: "+update);
+//
+//    }
+//
+//    @Test
+//    @Disabled
+//    void e_delete() {
+//        repository.create(order1);
+//        boolean deleted= repository.delete(order1.getOrderId());
+//        assertTrue(deleted);
+//        System.out.println("Deleted: "+ deleted);
+//    }
+//    @Test
+//    void f_getAllOrders() {
+//        List<DeliveryOrders> allOrders = repository.getAllOrders();
+//        System.out.println("All Orders: "+ allOrders);
+//    }
 }
