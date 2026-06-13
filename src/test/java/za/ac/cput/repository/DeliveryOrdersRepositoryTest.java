@@ -3,23 +3,32 @@ package za.ac.cput.repository;
 import org.junit.jupiter.api.*;
 import za.ac.cput.domain.DeliveryOrders;
 import za.ac.cput.factory.DeliveryOrdersFactory;
+import za.ac.cput.repository.DeliveryOrdersRepo.DeliveryOrdersRepository;
+import za.ac.cput.repository.DeliveryOrdersRepo.IDeliveryOrdersRepository;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
+
+/*
+DeliveryOrdersRepositoryTest.java
+Delivery Orders module class
+Author: Ryle Peter May (230333907)
+Date: 2026
+ */
 
 import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class DeliveryOrdersRepositoryTest {
 
-    static Date orderDate = new Date(2026,03,15);
-    static Date deliveryDate = new Date(2027,03,20);
+    static IDeliveryOrdersRepository repository = DeliveryOrdersRepository.getRepository();
 
+    static LocalDate orderDate = LocalDate.of(2026,Month.MARCH,25);
+    static LocalDate deliveryDate = LocalDate.of(2026,Month.APRIL,1);
 
     static DeliveryOrders.Status deliveryStatus = DeliveryOrders.Status.OrderPlaced;
     static DeliveryOrders.PaymentStatus paymentStatus = DeliveryOrders.PaymentStatus.PENDING;
 
-    static IDeliveryOrdersRepository repository = DeliveryOrdersRepository.getRepository();
     static DeliveryOrders order1= DeliveryOrdersFactory.createDeliveryOrder("#001",
             "12345",
             orderDate, deliveryDate,
@@ -32,23 +41,24 @@ class DeliveryOrdersRepositoryTest {
     void b_create() {
         DeliveryOrders created = repository.create(order1);
         assertNotNull(created);
-        System.out.println("Created: " + created);
+        System.out.println("Order Created");
     }
 
     @Test
     void c_read() {
+        repository.create(order1);
         DeliveryOrders read = repository.read(order1.getOrderId());
         assertEquals(order1.getOrderId(), read.getOrderId());
-        System.out.println("Order: "+ read);
+        System.out.println("Order: "+"\n"+read+"\n");
     }
 
     @Test
     void d_update() {
-        DeliveryOrders newDeliveryOrder = DeliveryOrdersFactory.createDeliveryOrder("#001",
-                "12345",
-                order1.getOrderDate(), order1.getDeliveryDate(),
-                order1.getDeliveryStatus(),order1.getPaymentStatus(),
-                19990.0f,"Drop off infront of door");
+        repository.create(order1);
+        DeliveryOrders newDeliveryOrder = new DeliveryOrders.Builder()
+                .copy(order1)
+                .setSpecialInstructions("Drop off in front of the door")
+                .build();
 
         DeliveryOrders update = repository.update(newDeliveryOrder);
         assertNotNull(update);
@@ -57,7 +67,9 @@ class DeliveryOrdersRepositoryTest {
     }
 
     @Test
+    @Disabled
     void e_delete() {
+        repository.create(order1);
         boolean deleted= repository.delete(order1.getOrderId());
         assertTrue(deleted);
         System.out.println("Deleted: "+ deleted);

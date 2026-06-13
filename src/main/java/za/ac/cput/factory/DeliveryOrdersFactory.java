@@ -3,13 +3,20 @@ package za.ac.cput.factory;
 import za.ac.cput.domain.DeliveryOrders;
 import za.ac.cput.util.Helper;
 
-import java.util.Date;
+import java.time.LocalDate;
+
+/*
+DeliveryOrdersFactory.java
+Delivery Orders module class
+Author: Ryle Peter May (230333907)
+Date: 2026
+ */
 
 public class DeliveryOrdersFactory {
     public static DeliveryOrders createDeliveryOrder(String orderId, String customerId,
-                                                            Date orderDate,Date deliveryDate,
-                                                            DeliveryOrders.Status deliveryStatus, DeliveryOrders.PaymentStatus paymentStatus,
-                                                            float totalCost, String specialInstructions){
+                                                     LocalDate orderDate, LocalDate deliveryDate,
+                                                     DeliveryOrders.Status deliveryStatus, DeliveryOrders.PaymentStatus paymentStatus,
+                                                     float totalCost, String specialInstructions){
 
         if(Helper.isEmptyOrNull(orderId)||
            Helper.isEmptyOrNull(customerId) ||

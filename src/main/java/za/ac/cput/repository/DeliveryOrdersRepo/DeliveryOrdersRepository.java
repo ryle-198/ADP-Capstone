@@ -1,9 +1,16 @@
-package za.ac.cput.repository;
+package za.ac.cput.repository.DeliveryOrdersRepo;
 
 import za.ac.cput.domain.DeliveryOrders;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/*
+DeliveryOrdersRepository.java
+Delivery Orders module class
+Author: Ryle Peter May (230333907)
+Date: 2026
+ */
 
 public class DeliveryOrdersRepository implements IDeliveryOrdersRepository{
 
