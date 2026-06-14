@@ -15,7 +15,7 @@ public class DeliveryOrdersController {
     @Autowired
     DeliveryOrdersController(DeliveryOrdersService service){this.service=service;}
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public DeliveryOrders createDeliveryOrder(@RequestBody DeliveryOrders deliveryOrders){
         return this.service.create(deliveryOrders);
     }
@@ -25,13 +25,13 @@ public class DeliveryOrdersController {
         return this.service.read(deliveryOrderId);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public DeliveryOrders updateDeliveryOrder(@RequestBody DeliveryOrders updatedDeliveryOrders){
         return this.service.update(updatedDeliveryOrders);
     }
 
     @DeleteMapping("/delete/{deliveryOrderId}")
-    public boolean deleteOrder(String deliveryOrderId){
+    public boolean deleteOrder(@PathVariable String deliveryOrderId){
         return this.service.delete(deliveryOrderId);
     }
 

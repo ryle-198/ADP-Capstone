@@ -31,7 +31,7 @@ class DeliveryOrdersFactoryTest {
     @BeforeEach
     void setUp() {
         order1 = DeliveryOrdersFactory.createDeliveryOrder(
-                "#001",
+                "001",
                 "12345",
                 orderDate, deliveryDate,
                 deliveryStatus, paymentStatus,
