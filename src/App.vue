@@ -1,7 +1,9 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <HelloWorld />
+  <div>
+    <ShipmentView />
+  </div>
 </template>
+
+<script setup>
+import ShipmentView from './ShipmentView.vue'
+</script>
