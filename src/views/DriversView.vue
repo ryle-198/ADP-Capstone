@@ -196,6 +196,8 @@ fetchDrivers()
   --secondary: #4edea3;
   --error: #ffb4ab;
 
+  background: var(--surface);
+  color: var(--on-surface);
   min-height: 100vh;
   padding: 2rem;
   font-family: 'Inter', sans-serif;
@@ -280,11 +282,10 @@ fetchDrivers()
 
 .drivers-table td {
   padding: 1rem;
-  color: var(--on-surface);
+  color: #dae2fd;
   font-size: 0.875rem;
   text-align: center;
 }
-
 .badge-available {
   background: rgba(78, 222, 163, 0.15);
   color: #4edea3;
