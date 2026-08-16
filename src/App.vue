@@ -1,7 +1,12 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
+// import DeliveryOrdersVue from './views/DeliveryOrdersView.vue'
+import SidePanel from './components/SidePanel.vue'
+
 </script>
 
 <template>
-  <HelloWorld />
+<SidePanel/>
+<!-- <DeliveryOrdersVue/> -->
+  <!-- <HelloWorld /> -->
 </template>
