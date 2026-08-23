@@ -151,7 +151,7 @@ onMounted(() => {
   <div class="vehicles-page">
 
     <div class="page-header">
-      <h1>VEHICLES</h1>
+      <h1>VEHICLE</h1>
       <p>Manage all vehicles registered in the delivery system.</p>
     </div>
 
@@ -185,7 +185,6 @@ onMounted(() => {
 
         <div class="form-grid">
 
-          <!-- Vehicle ID -->
           <div class="form-group">
             <label>Vehicle ID</label>
 
