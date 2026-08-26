@@ -148,7 +148,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="vehicles-page">
+  <div class="admin-page">
 
     <div class="page-header">
       <h1>VEHICLES</h1>
@@ -466,44 +466,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-
-.vehicles-page {
-  --surface: #0b1326;
-  --surface-container-lowest: #060e20;
-  --surface-container-low: #131b2e;
-  --surface-container: #171f33;
-  --surface-container-high: #222a3d;
-  --surface-container-highest: #2d3449;
-  --surface-variant: #2d3449;
-
-  --on-surface: #dae2fd;
-  --on-surface-variant: #c2c6d6;
-
-  --outline: #8c909f;
-  --outline-variant: #424754;
-
-  --primary: #adc6ff;
-  --primary-container: #4d8eff;
-
-  --secondary: #4edea3;
-  --error: #ffb4ab;
-
-  width: 100%;
-  max-width: 1126px;
-  margin: 0 auto;
-  padding: 40px 25px;
-  box-sizing: border-box;
-
-  text-align: left;
-
-  background: var(--surface);
-  color: var(--on-surface);
-
-  min-height: 100vh;
-
-  font-family: 'Inter', sans-serif;
-}
-
 
 .page-header {
   margin-bottom: 30px;

@@ -80,7 +80,7 @@ fetchDrivers()
 </script>
 
 <template>
-  <main class="drivers-page">
+  <main class="admin-page">
     <div class="page-header">
       <div>
         <h1 class="text-center">LIST OF DRIVERS</h1>
@@ -178,30 +178,6 @@ fetchDrivers()
 </template>
 
 <style scoped>
-.drivers-page {
-  --surface: #0b1326;
-  --surface-container-lowest: #060e20;
-  --surface-container-low: #131b2e;
-  --surface-container: #171f33;
-  --surface-container-high: #222a3d;
-  --surface-container-highest: #2d3449;
-  --surface-variant: #2d3449;
-  --on-surface: #dae2fd;
-  --on-surface-variant: #c2c6d6;
-  --outline: #8c909f;
-  --outline-variant: #424754;
-  --primary: #adc6ff;
-  --primary-container: #4d8eff;
-  --on-primary-container: #00285d;
-  --secondary: #4edea3;
-  --error: #ffb4ab;
-
-  background: var(--surface);
-  color: var(--on-surface);
-  min-height: 100vh;
-  padding: 2rem;
-  font-family: 'Inter', sans-serif;
-}
 
 .page-header {
   padding-bottom: 1rem;

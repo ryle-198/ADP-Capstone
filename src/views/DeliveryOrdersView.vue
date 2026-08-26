@@ -1,193 +1,132 @@
 <script setup>
-import {ref, watch} from 'vue'
+import {ref, onMounted} from 'vue'
+import {RouterLink} from 'vue-router'
 import  deliveryOrderServices from '../services/deliveryOrderService'
 
 const orders = ref([])
-const page = ref(0)
-const size = ref(10)
-const totalPages = ref(0)
-const totalElements = ref(0)
-const sortBy = ref('orderDate')
-const direction = ref('desc')
-const search = ref('')
-const loading  = ref(false)
-
-let searchTimeout = null
-
-// function getAllDeliveryOrders(){
-//     deliveryOrderServices.getAll().then((response) => {
-//         deliveryOrders.value = response.data
-//     })
-// }
-
+const loading = ref(false)
+ 
 function fetchOrders(){
-    loading.value = true
-    deliveryOrderServices.getPaged({
-        page: page.value,
-        size: size.value,
-        sortBy: sortBy.value,
-        direction: direction.value,
-        search: search.value
-    }).then((response)=>{
-        orders.value = response.data.content
-        totalPages.value = response.data.totalPages
-        totalElements.value = response.data.totalElements
+    loading.value=true
+    deliveryOrderServices.getAll().then((response)=>{
+        orders.value=response.data
     }).finally(()=>{
-        loading.value= false
+        loading.value=false
     })
 }
 
-function sortByColumn(column){
-    if(sortBy.value === column){
-        direction.value = direction.value ==='asc' ? 'desc' : 'asc'
-    }else{
-        sortBy.value = column
-        direction.value = 'asc'
-    }
-    page.value = 0 
-    fetchOrders()
+function removeOrder(id){
+    if(!confirm(`Delete order ${id}?`)) return
+    deliveryOrderServices.delete(id).then(fetchOrders)
 }
 
-function goToPage(newPage){
-    if(newPage < 0 || newPage >= totalPages.value) return 
-    page.value = newPage
-    fetchOrders()
- }
-
- watch(search, () => {
-    clearTimeout(searchTimeout)
-    searchTimeout = setTimeout(()=>{
-        page.value = 0
-        fetchOrders()
-    }, 400)
- })
-
-fetchOrders() // this could MAYBE cause issues since the one at the bottom is being called as well
-
-// onMounted(() => {
-//     getAllDeliveryOrders()
-//     // fetchOrders()
-// })
-
-
+onMounted(fetchOrders)
 </script>
 <template>
-    <main class="orders-page">
+    <main class="admin-page">
         <div class="page-header">
             <div>
                 <h1 class="text-center">LIST OF DELIVERY ORDERS</h1>
                 <p class ="subtitle">Manage InBound Logistics</p>
             </div>
+            <RouterLink to="/orders/new" class="new-btn">+ new order</RouterLink>
         </div>
 
-        <div class="card">
+        <!--<div class="card">
             <div class="search-bar">
             <input
             v-model="search"
             type="text"
             placeholder="Search by order ID" 
-            class="search-input"/><!--maybe make it so it can search with customer id as well-->
+            class="search-input"/>maybe make it so it can search with customer id as well
             </div>
-        </div>
+        </div>-->
 
         <div class=table-wrap>
             <table class="orders-table">
                 <thead>
                     <tr>
-                    <th @click="sortByColumn('orderId')" class="sortable">
-                        Order ID<span v-if="sortBy === 'orderDate'">{{direction === 'asc' ? '^': 'v'}}</span>
-                    </th>
+                    <th>Order ID</th>
                     <th>Customer ID</th>
-                    <th @click="sortByColumn('orderDate')">
-                        Order Date<span v-if="sortBy === 'orderDate'" class="sortable">{{direction === 'asc' ? '^': 'v'}}</span>
-                    </th>
-                    <th @click ="sortByColumn('deliveryDate')">
-                        Delivery Date<span v-if="sortBy === 'deliveryDate'" class="sortable">{{direction === 'asc' ? '^': 'v'}}</span>
-                    </th>
-                    <th>Delivery Status</th>
-                    <th>Payment Status</th>
-                    <th>Total Cost</th>
-                    <th>Special Instructions</th>
+                    <th>Order Date</th>
+                    <th>Delivery Date</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th>Total</th>
+                    <th>Instructions</th>
+                    <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-if="loading">
-                        <td colspan="7">Loading...</td>
+                        <td colspan="9">Loading...</td>
                     </tr>
 
                     <tr v-else-if="orders.length === 0">
-                        <td colspan="7">No Orders Found.</td>
+                        <td colspan="9">No Orders Found.</td>
                     </tr>
 
-                    <tr v-for ="order in orders" v-bind:key ="order.orderId">
+                    <tr v-else v-for="order in orders" :key="order.orderId">
                         <td>{{order.orderId}}</td>
                         <td>{{order.customer?.customerId}}</td>
                         <td>{{order.orderDate}}</td>
                         <td>{{order.deliveryDate}}</td>
                         <td>{{order.deliveryStatus}}</td>
                         <td>{{order.paymentStatus}}</td>
-                        <td>{{order.totalCost}}</td>
+                        <td>{{order.totalCost?.toFixed(2)}}</td>
                         <td>{{order.specialInstructions}}</td>
+                        <td>
+                            <RouterLink :to="`/orders/${order.orderId}/edit`" class="btn-outline">Edit</RouterLink>
+                            <button @click="removeOrder(order.orderId)" class="btn-danger">Delete</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="pagination">
+        <!-- <div class="pagination">
             <button class="page-btn" :disabled="page === 0" @click="goToPage(page - 1)">Prev</button>
             <span class="page-info">Page {{ page + 1 }} of {{ totalPages || 1 }}</span>
             <button class="page-btn" :disabled="page >= totalPages - 1" @click="goToPage(page + 1)">Next</button>
-        </div>
+        </div> -->
     </main>
     
 </template>
 
 <style scoped>
-.orders-page {
 
-  --surface: #0b1326;
-  --surface-container-lowest: #060e20;
-  --surface-container-low: #131b2e;
-  --surface-container: #171f33;
-  --surface-container-high: #222a3d;
-  --surface-container-highest: #2d3449;
-  --surface-variant: #2d3449;
-  --on-surface: #dae2fd;
-  --on-surface-variant: #c2c6d6;
-  --outline: #8c909f;
-  --outline-variant: #424754;
-  --primary: #adc6ff;
-  --primary-container: #4d8eff;
-  --on-primary-container: #00285d;
-  --secondary: #4edea3;
-  --secondary-container: #00a572;
-  --tertiary: #ffb95f;
-  --tertiary-container: #ca8100;
-  --error: #ffb4ab;
-  --error-container: #93000a;
-  
-  min-height: 100vh;
-  padding: 2rem;
-  font-family: 'Inter', sans-serif;
-}
-
-.page-header{
+/* .page-header{
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--outline-varient);
+    border-bottom: 1px solid var(--outline-variant);
     margin-bottom: 1.5rem;
+    display: grid;
+    justify-content: center;
+} */
+
+.text-center{
+    display: grid;
+    justify-content: center;
 }
+
+/* .subtitle{
+    color: var(--outline-variant);
+    display: grid;
+    justify-content: center;
+    padding-top:1rem;
+} */
 
 .card{
     /* background-color:#060e20; */
 }
 
 .search-bar{
-
+    display: grid;
+    justify-content: center;
     padding:1.25rem;
 }
 
 .search-input {
-  border: 1px solid var(--outline-variant);
+  border: 2px solid var(--outline-variant);
   border-radius: 2rem;
   padding: 0.6rem 1rem 0.6rem 2.5rem;  margin-bottom: 1rem;
   width: 100%;
@@ -195,6 +134,7 @@ fetchOrders() // this could MAYBE cause issues since the one at the bottom is be
   max-width: 400px;
   outline: none;
   transition: 0.2s ease-in-out;
+  background-color:var(--dark-alt);
 }
 
 .search-input:focus {
@@ -293,4 +233,22 @@ th {
   font-size: 0.85rem;
   color: var(--on-surface-variant);
 }
+
+.new-btn { 
+    display: grid;
+    justify-content: center;
+
+    border: none;
+    border-radius: 4px;
+
+    padding: 9px 24px;
+    
+    font-size: 14px;
+    font-weight: bolder;
+    width: 150px;
+    background: var(--admin-primary);
+    color: #fff;
+    text-decoration: none; 
+    }
+    
 </style>

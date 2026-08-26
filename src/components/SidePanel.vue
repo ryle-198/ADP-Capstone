@@ -17,7 +17,7 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <div class="layout">
+  <!-- <div class="layout"> -->
     <aside :class="`aside ${isExpanded ? 'is-expanded' : ''}`">
       <div class="logo">
         <img :src="vueLogo" alt="logo" />
@@ -66,22 +66,22 @@ const toggleMenu = () => {
       <div class="flex"></div>
     </aside>
 
-    <main class="content">
+    <!-- <main class="content">
       <RouterView />
-    </main>
-  </div>
+    </main> -->
+  <!-- </div> -->
 </template>
 
 <style lang="scss" scoped>
-.layout {
-  display: flex;
-  min-height: 100vh;
-}
+// .layout {
+//   display: flex;
+//   min-height: 100vh;
+// }
 
-.content {
-  flex: 1;
-  padding: 2rem;
-}
+// .content {
+//   flex: 1;
+//   padding: 2rem;
+// }
 
 .aside {
   display: flex;
@@ -90,9 +90,9 @@ const toggleMenu = () => {
   background-color: var(--dark);
   color: var(--light);
   
-  width: calc(2rem + 32px);
+  width: calc(5rem + 32px);
   overflow: hidden;
-  min-height: 100vh;
+  height: auto;
   padding: 1rem;
   transition: 0.2s ease-in-out;
 
@@ -101,7 +101,9 @@ const toggleMenu = () => {
   }
 
   .logo {
-    margin-bottom: 1rem;
+    // padding-left: 1rem;
+    // margin-bottom: 1rem;
+    // margin-right: 1rem;
     img {
       width: 2rem;
     }
@@ -110,7 +112,8 @@ const toggleMenu = () => {
   .menu-toggle-wrap {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    margin-right: 1rem;
     position: relative;
     top: 0;
     transition: 0.2s ease-in-out;
@@ -119,6 +122,7 @@ const toggleMenu = () => {
       background: none;
       border: none;
       cursor: pointer;
+      margin-top: 1rem;
       margin-right:0.5rem;
       transition: 0.2s ease-in-out;
 
@@ -129,7 +133,7 @@ const toggleMenu = () => {
       }
 
       &:hover .material-symbols-outlined {
-        color: var(--primary);
+        color: var(--secondary);
         transform: translateX(0.5rem);
       }
     }
@@ -167,15 +171,15 @@ const toggleMenu = () => {
       &:hover {
         background-color: var(--dark-alt);
         .text {
-          color: var(--primary);
+          color: var(--secondary);
         }
       }
 
       &.router-link-exact-active {
         background-color: var(--dark-alt);
-        border-right: 5px solid var(--primary);
+        border-right: 5px solid var(--secondary);
         .text {
-          color: var(--primary);
+          color: var(--secondary);
         }
       }
     }
