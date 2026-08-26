@@ -1,39 +1,39 @@
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.Vehicle;
-import za.ac.cput.util.Helper;
-
 
 import java.time.LocalDate;
 
-import static za.ac.cput.util.Helper.*;
+import static za.ac.cput.util.Helper.isEmptyOrNull;
+import static za.ac.cput.util.Helper.isNumNeg;
 
 /*
 VehicleFactory.java
-Vehicle model class
+Vehicle factory model class
 Author: Litha Owethu Mazibuko (240143485)
 Date: 2026
  */
 
-
 public class VehicleFactory {
 
+    public static Vehicle createVehicle(
+            String vehicleId,
+            String numberPlate,
+            Vehicle.VehicleType type,
+            float capacity,
+            Vehicle.VehicleStatus currentStatus,
+            float mileage,
+            LocalDate lastService) {
 
-    public static Vehicle createVehicle(String vehicleId, String numberPlate, Vehicle.VehicleType type, float capacity, Vehicle.VehicleStatus currentStatus, float mileage, LocalDate lastService) {
-        if (isEmptyOrNull(vehicleId) ||
-                isEmptyOrNull(numberPlate) ||
-                type == null||
-                currentStatus == null ||
-                 lastService == null) {
+        if (isEmptyOrNull(vehicleId)
+                || isEmptyOrNull(numberPlate)
+                || type == null
+                || currentStatus == null
+                || lastService == null) {
             return null;
         }
-
 
         if (isNumNeg(capacity) || isNumNeg(mileage)) {
-            return null;
-        }
-
-        if(Helper.isValidType(type)|| Helper.isValidType(currentStatus)){
             return null;
         }
 
@@ -46,5 +46,7 @@ public class VehicleFactory {
                 .setMileage(mileage)
                 .setLastService(lastService)
                 .build();
+
     }
+
 }

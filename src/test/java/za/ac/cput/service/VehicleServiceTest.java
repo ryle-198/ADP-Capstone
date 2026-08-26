@@ -1,5 +1,6 @@
-package za.ac.cput.repository;
+package za.ac.cput.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -7,31 +8,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Vehicle;
 import za.ac.cput.factory.VehicleFactory;
-import za.ac.cput.repository.VehicleRepo.IVehicleRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
-VehicleRepositoryTest.java
-Vehicle repository test model class
+VehicleServiceTest.java
+Vehicle service test model class
 Author: Litha Owethu Mazibuko (240143485)
 Date: 2026
  */
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.MethodName.class)
-class VehicleRepositoryTest {
+class VehicleServiceTest {
 
     @Autowired
-    private IVehicleRepository repository;
+    private VehicleService service;
 
-    private Vehicle createTestVehicle() {
+    private Vehicle vehicle;
 
-        return VehicleFactory.createVehicle(
+    @BeforeEach
+    void setUp() {
+
+        vehicle = VehicleFactory.createVehicle(
                 "V001",
                 "CAA24680",
                 Vehicle.VehicleType.TRUCK,
@@ -40,48 +42,49 @@ class VehicleRepositoryTest {
                 18000.0f,
                 LocalDate.of(2025, 12, 10)
         );
+
+        assertNotNull(vehicle);
     }
 
     @Test
     void a_create() {
 
-        Vehicle vehicle = createTestVehicle();
+        Vehicle created = service.create(vehicle);
 
-        Vehicle saved = repository.save(vehicle);
+        assertNotNull(created);
+        assertEquals("V001", created.getVehicleId());
+        assertEquals("CAA24680", created.getNumberPlate());
 
-        assertNotNull(saved);
-        assertEquals("V001", saved.getVehicleId());
-        assertEquals("CAA24680", saved.getNumberPlate());
-
-        System.out.println("Created Vehicle: " + saved);
+        System.out.println("Created Vehicle: " + created);
     }
 
     @Test
     void b_read() {
 
-        Vehicle vehicle = createTestVehicle();
+        // Create vehicle first
+        service.create(vehicle);
 
-        repository.save(vehicle);
+        Vehicle read = service.read(vehicle.getVehicleId());
 
-        Optional<Vehicle> result =
-                repository.findById("V001");
+        assertNotNull(read);
+        assertEquals(
+                vehicle.getVehicleId(),
+                read.getVehicleId()
+        );
 
-        assertTrue(result.isPresent());
+        assertEquals(
+                vehicle.getNumberPlate(),
+                read.getNumberPlate()
+        );
 
-        Vehicle found = result.get();
-
-        assertEquals("V001", found.getVehicleId());
-        assertEquals("CAA24680", found.getNumberPlate());
-
-        System.out.println("Read Vehicle: " + found);
+        System.out.println("Read Vehicle: " + read);
     }
 
     @Test
     void c_update() {
 
-        Vehicle vehicle = createTestVehicle();
-
-        repository.save(vehicle);
+        // Create vehicle first
+        service.create(vehicle);
 
         Vehicle updatedVehicle = new Vehicle.Builder()
                 .copy(vehicle)
@@ -94,8 +97,7 @@ class VehicleRepositoryTest {
                 .setLastService(LocalDate.now())
                 .build();
 
-        Vehicle updated =
-                repository.save(updatedVehicle);
+        Vehicle updated = service.update(updatedVehicle);
 
         assertNotNull(updated);
 
@@ -118,14 +120,12 @@ class VehicleRepositoryTest {
     }
 
     @Test
-    void d_getAll() {
+    void d_getAllVehicles() {
 
-        Vehicle vehicle = createTestVehicle();
+        // Create vehicle first
+        service.create(vehicle);
 
-        repository.save(vehicle);
-
-        List<Vehicle> vehicles =
-                repository.findAll();
+        List<Vehicle> vehicles = service.getAllVehicles();
 
         assertNotNull(vehicles);
         assertFalse(vehicles.isEmpty());
@@ -140,21 +140,18 @@ class VehicleRepositoryTest {
     @Test
     void e_delete() {
 
-        Vehicle vehicle = createTestVehicle();
+        service.create(vehicle);
 
-        repository.save(vehicle);
+        boolean deleted =
+                service.delete(vehicle.getVehicleId());
 
-        assertTrue(
-                repository.existsById(vehicle.getVehicleId())
-        );
+        assertTrue(deleted);
 
-        repository.deleteById(vehicle.getVehicleId());
+        Vehicle deletedVehicle =
+                service.read(vehicle.getVehicleId());
 
-        assertFalse(
-                repository.existsById(vehicle.getVehicleId())
-        );
+        assertNull(deletedVehicle);
 
         System.out.println("Vehicle deleted successfully.");
     }
-
 }

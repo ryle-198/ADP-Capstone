@@ -1,17 +1,25 @@
 package za.ac.cput.domain;
 
-import java.time.LocalDate;
-
-
 /*
 Vehicle.java
 Vehicle model class
 Author: Litha Owethu Mazibuko (240143485)
 Date: 2026
- */
+*/
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "vehicle")
 public class Vehicle {
-    public enum VehicleType{
+
+    public enum VehicleType {
         TRUCK,
         VAN,
         BAKKIE,
@@ -19,7 +27,7 @@ public class Vehicle {
         TRAILER
     }
 
-    public enum VehicleStatus{
+    public enum VehicleStatus {
         AVAILABLE,
         IN_USE,
         IN_SERVICE,
@@ -27,18 +35,32 @@ public class Vehicle {
         RESERVED
     }
 
+    @Id
     private String vehicleId;
-     private String numberPlate;
-     private VehicleType type;
-     private float capacity;
-     private VehicleStatus currentStatus;
-     private float mileage;
-     private LocalDate lastService;
+    private String numberPlate;
 
-    private Vehicle(){
+    @Enumerated(EnumType.STRING)
+    private VehicleType type;
+    private float capacity;
+
+    @Enumerated(EnumType.STRING)
+
+    private VehicleStatus currentStatus;
+    private float mileage;
+    private LocalDate lastService;
+
+    public Vehicle() {
     }
 
-public Vehicle(String vehicleId, String numberPlate, VehicleType type, float capacity, VehicleStatus currentStatus, float mileage, LocalDate lastService) {
+    protected Vehicle(
+            String vehicleId,
+            String numberPlate,
+            VehicleType type,
+            float capacity,
+            VehicleStatus currentStatus,
+            float mileage,
+            LocalDate lastService) {
+
         this.vehicleId = vehicleId;
         this.numberPlate = numberPlate;
         this.type = type;
@@ -46,7 +68,7 @@ public Vehicle(String vehicleId, String numberPlate, VehicleType type, float cap
         this.currentStatus = currentStatus;
         this.mileage = mileage;
         this.lastService = lastService;
-}
+    }
 
     private Vehicle(Builder builder) {
         this.vehicleId = builder.vehicleId;
@@ -57,6 +79,7 @@ public Vehicle(String vehicleId, String numberPlate, VehicleType type, float cap
         this.mileage = builder.mileage;
         this.lastService = builder.lastService;
     }
+
 
     public String getVehicleId() {
         return vehicleId;
@@ -86,21 +109,21 @@ public Vehicle(String vehicleId, String numberPlate, VehicleType type, float cap
         return lastService;
     }
 
-
     @Override
     public String toString() {
         return "Vehicle{" +
                 "vehicleId='" + vehicleId + '\'' +
-                ", numberPlate" + numberPlate + '\'' +
-                ", type='" + type + '\'' +
-                ", capacity='" + capacity + '\'' +
-                ", currentStatus=" + currentStatus + '\'' +
-                ", mileage=" + mileage + '\'' +
-                ", lastService" + lastService +
+                ", numberPlate='" + numberPlate + '\'' +
+                ", type=" + type +
+                ", capacity=" + capacity +
+                ", currentStatus=" + currentStatus +
+                ", mileage=" + mileage +
+                ", lastService=" + lastService +
                 '}';
     }
 
     public static class Builder {
+
         private String vehicleId;
         private String numberPlate;
         private VehicleType type;
@@ -151,47 +174,13 @@ public Vehicle(String vehicleId, String numberPlate, VehicleType type, float cap
             this.capacity = vehicle.capacity;
             this.currentStatus = vehicle.currentStatus;
             this.mileage = vehicle.mileage;
-            this.lastService =vehicle.lastService;
-            return this;
+            this.lastService = vehicle.lastService;
 
+            return this;
         }
 
         public Vehicle build() {
             return new Vehicle(this);
         }
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

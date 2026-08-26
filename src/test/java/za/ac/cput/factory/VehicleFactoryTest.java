@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /*
 VehicleFactoryTest.java
-Vehicle model class
+Vehicle factory test model class
 Author: Litha Owethu Mazibuko (240143485)
 Date: 2026
  */
