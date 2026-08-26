@@ -13,30 +13,35 @@ import java.util.List;
 @Service
 public class ShipmentService implements IShipmentService {
 
-    private final ShipmentRepository shipmentRepository = ShipmentRepository.getInstance();
+    private final ShipmentRepository shipmentRepository;
+
+    ShipmentService(ShipmentRepository shipmentRepository){
+        this.shipmentRepository=shipmentRepository;
+    }
 
     @Override
     public Shipment create(Shipment shipment) {
-        return shipmentRepository.create(shipment);
+        return shipmentRepository.save(shipment);
     }
 
     @Override
     public Shipment read(String shipmentId) {
-        return shipmentRepository.read(shipmentId);
+        return shipmentRepository.findById(shipmentId).orElse(null);
     }
 
     @Override
     public Shipment update(Shipment shipment) {
-        return shipmentRepository.update(shipment);
+        return shipmentRepository.save(shipment);
     }
 
     @Override
     public boolean delete(String shipmentId) {
-        return shipmentRepository.delete(shipmentId);
+         shipmentRepository.deleteById(shipmentId);
+         return true;
     }
 
     @Override
     public List<Shipment> getAll() {
-        return shipmentRepository.getAllShipments();
+        return shipmentRepository.findAll();
     }
 }

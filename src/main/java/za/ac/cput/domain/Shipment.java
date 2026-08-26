@@ -1,12 +1,15 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 /*
 Shipment.java
 Shipment module class
 Author: NOMPUMELELO MBATHA (240256727)
 Date: 2026
  */
-
+@Entity
 public class Shipment {
 
     public enum Status{
@@ -28,6 +31,7 @@ public class Shipment {
         DAMAGED
     }
 
+    @Id
     private String shipmentId;
     private String orderId;
     private String routeId;

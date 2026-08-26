@@ -15,15 +15,15 @@ import za.ac.cput.domain.Shipment;
 import za.ac.cput.factory.ShipmentFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ShipmentControllerTest {
 
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate=new RestTemplate();
 
     private static Shipment shipment;
-    private final String BASE_URL = "/shipment";
+    protected static String BASE_URL = "http://localhost:8080/freightanddelivery/shipment";
 
     @BeforeAll
     static void setUp() {

@@ -6,19 +6,21 @@
 package za.ac.cput.service;
 
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Shipment;
 import za.ac.cput.factory.ShipmentFactory;
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ShipmentServiceTest {
 
-    private static ShipmentService service;
+    @Autowired
+    private ShipmentService service;
     private static Shipment shipment;
 
     @BeforeAll
     static void setUp() {
-        service = new ShipmentService();
         shipment = ShipmentFactory.createShipment(
                 "SH001",
                 "ORD001",

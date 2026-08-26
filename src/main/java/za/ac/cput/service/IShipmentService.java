@@ -8,10 +8,6 @@ package za.ac.cput.service;
 import za.ac.cput.domain.Shipment;
 import java.util.List;
 
-public interface IShipmentService {
-    Shipment create(Shipment shipment);
-    Shipment read(String shipmentId);
-    Shipment update(Shipment shipment);
-    boolean delete(String shipmentId);
+public interface IShipmentService extends IService<Shipment, String>{
     List<Shipment> getAll();
 }
