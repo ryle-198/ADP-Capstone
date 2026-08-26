@@ -1,0 +1,113 @@
+:root {
+  /* ==========================================================
+     ADMIN DASHBOARD THEME (sidebar, tables, internal tooling)
+     Prefixed --admin-* so nothing collides with the site theme
+     ========================================================== */
+  --dark: #1e1e2f;
+  --dark-alt: #2a2a3d;
+  --light: #f5f5f5;
+  --admin-primary: #42b883;
+  --grey: #8a8a8a;
+  --sidebar-width: 240px;
+
+  /* ==========================================================
+     PUBLIC SITE THEME (navbar, hero, services, quote, footer)
+     ========================================================== */
+  --primary: #151628;
+  --primary-fixed: #e2e0f9;
+  --primary-container: #2a2a3d;
+  --secondary: #42b883;
+  --secondary-fixed: #86f9be;
+  --on-primary: #ffffff;
+  --on-primary-container: #9291a8;
+  --on-surface: #041845;
+  --on-surface-variant: #47464c;
+  --surface: #faf8ff;
+  --surface-variant: #dbe1ff;
+  --surface-container: #eaedff;
+  --surface-container-low: #f2f3ff;
+  --surface-container-high: #e3e7ff;
+  --surface-container-lowest: #ffffff;
+  --border-muted: #dce1e9;
+  --outline: #78767d;
+  --outline-variant: #c8c5cd;
+  --background: #faf8ff;
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+
+  /* ==========================================================
+     LAYOUT TOKENS
+     ========================================================== */
+  --container-max: 1280px;
+  --desktop-margin: 40px;
+  --mobile-margin: 16px;
+  --gutter: 24px;
+
+  /* ==========================================================
+     TYPOGRAPHY
+     ========================================================== */
+  --font-sans: 'Hanken Grotesk', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Hanken Grotesk', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  font: 16px/145% var(--font-sans);
+  color-scheme: light;
+  color: var(--light);
+  background: var(--background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 15px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--primary);
+  color: var(--light);
+}
+
+#app {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--light);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--surface-container-low);
+  color: var(--on-surface);
+}
