@@ -16,10 +16,15 @@ const router = createRouter({
     
 
     routes: [
+        // {
+        //     path: "/",
+        //     name: "home",
+        //     component: HomeView,
+        // },
         {
-            path: "/",
-            name: "home",
-            component: HomeView,
+                path: "/home",
+                name: "home",
+                component: HomeView,
         },
 
         {
@@ -92,10 +97,10 @@ const router = createRouter({
             },
 
 
-        // {
-        //     path: "/",
-        //     redirect: "/portal-x7q2/login",
-        // },
+        {
+            path: "/",
+            redirect: "/portal-x7q2/login",
+        },
 
         { 
             path: "/portal-x7q2/login", 
