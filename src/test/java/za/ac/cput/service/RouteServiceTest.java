@@ -19,8 +19,8 @@ class RouteServiceTest {
     private RouteService routeService;
 
     private static Route route1 = RouteFactory.createRoute("R001", "D001", "Cape Town", "Atlantis", 65.3f, 51);
-    @Autowired
-    private DataSourceTransactionManager dataSourceTransactionManager;
+//    @Autowired
+//    private DataSourceTransactionManager dataSourceTransactionManager;
 
     @Test
     void a_create() {
