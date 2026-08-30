@@ -7,6 +7,9 @@ Date: 2026
  */
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+
+import java.util.UUID;
 
 @Entity
 public class Driver {
@@ -18,7 +21,7 @@ public class Driver {
     private String phoneNumber;
     private boolean availability;
 
-    private Driver() {}
+    public Driver() {}
 
     private Driver(Builder builder) {
         this.id = builder.id;
@@ -27,6 +30,13 @@ public class Driver {
         this.licenseNumber = builder.licenseNumber;
         this.phoneNumber = builder.phoneNumber;
         this.availability = builder.availability;
+    }
+
+    @PrePersist
+    public void generateId(){
+        if(this.id == null || this.id.isBlank()){
+            this.id = UUID.randomUUID().toString();
+        }
     }
 
     public String getId() { return id; }

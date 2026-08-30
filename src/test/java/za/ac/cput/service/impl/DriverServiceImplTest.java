@@ -11,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Driver;
 import za.ac.cput.factory.DriverFactory;
+import za.ac.cput.service.DriverService;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class DriverServiceImplTest {
     @Autowired
-    private DriverServiceImpl service;
+    private DriverService service;
 
     private Driver driver;
 

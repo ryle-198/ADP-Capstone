@@ -1,22 +1,22 @@
-package za.ac.cput.service.impl;
+package za.ac.cput.service;
 /*
 DriverServiceImpl.java
 Driver service implementation
 Author: Angel Dineo Masonganye (223008869)
 Date: 2026
 */
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Driver;
 import za.ac.cput.repository.DriverRepo.IDriverRepository;
-import za.ac.cput.service.IDriverService;
+
+import java.util.List;
 
 @Service
-public class DriverServiceImpl implements IDriverService {
+public class DriverService implements IDriverService {
     private final IDriverRepository repository;
 
 
-    public DriverServiceImpl(IDriverRepository repository) {
+    public DriverService(IDriverRepository repository) {
         this.repository = repository;
     }
 
@@ -45,5 +45,10 @@ public class DriverServiceImpl implements IDriverService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Driver> getAll() {
+        return repository.findAll();
     }
 }

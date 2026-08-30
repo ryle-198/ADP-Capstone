@@ -9,15 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Driver;
-import za.ac.cput.service.impl.DriverServiceImpl;
+import za.ac.cput.service.DriverService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/driver")
 public class DriverController {
-    private final DriverServiceImpl service;
+    private final DriverService service;
 
     @Autowired
-    public DriverController(DriverServiceImpl service) {
+    public DriverController(DriverService service) {
         this.service = service;
     }
 
@@ -43,5 +45,10 @@ public class DriverController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable String id) {
         return ResponseEntity.ok(service.delete(id));
+    }
+
+    @GetMapping("/getAll")
+    public List<Driver> getAll(){
+        return this.service.getAll();
     }
 }
