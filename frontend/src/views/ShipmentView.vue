@@ -163,7 +163,7 @@ function closeForm(){
 }
 
 function submitForm(){
-  if(!form.value.shipmentId || !fomr.value.orderId){
+  if(!form.value.shipmentId || !form.value.orderId){
     alert('Shipment ID and Order ID are required')
     return
   }
@@ -241,7 +241,7 @@ onMounted(fetchShipments)
     text-decoration: none; 
     }
 /*
-.shipment-container {
+.shipment-containxer {
   padding: 20px;
   font-family: Arial, sans-serif;
 }

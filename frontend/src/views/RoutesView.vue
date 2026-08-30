@@ -90,7 +90,7 @@ fetchRoutes()
 </script>
 
 <template>
-  <main class="routes-page">
+  <main class="admin-page">
     <div class="page-header">
       <div>
         <h1 class="text-centre">LIST OF ROUTES</h1>
@@ -98,7 +98,7 @@ fetchRoutes()
       </div>
     </div>
 
-    <div class="card">
+    <div class="cardi">
       <div class="search-bar">
         <input
             v-model="search"
@@ -272,8 +272,8 @@ fetchRoutes()
 }
 
 .subtitle {
-  text-align: center;
-  color: var(--on-surface-variant);
+  //text-align: center;
+  //color: var(--on-surface-variant);
 }
 
 .card {
@@ -283,21 +283,21 @@ fetchRoutes()
 }
 
 .search-bar {
-  padding: 1.25rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+  //padding: 1.25rem;
+  //display: flex;
+  //gap: 1rem;
+  //align-items: center;
 }
 
 .search-input {
-  border: 1px solid var(--outline-variant);
-  border-radius: 2rem;
-  padding: 0.6rem 1rem;
-  width: 100%;
-  max-width: 400px;
-  font-size: 0.9rem;
-  outline: none;
-  transition: 0.2s ease-in-out;
+  //border: 1px solid var(--outline-variant);
+  //border-radius: 2rem;
+  //padding: 0.6rem 1rem;
+  //width: 100%;
+  //max-width: 400px;
+  //font-size: 0.9rem;
+  //outline: none;
+  //transition: 0.2s ease-in-out;
 }
 
 .search-input:focus {
@@ -306,14 +306,18 @@ fetchRoutes()
 }
 
 .add-btn {
-  padding: 0.5rem 1.2rem;
-  border-radius: 999px;
   border: none;
-  background: var(--primary-container);
-  color: white;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: 0.2s;
+  border-radius: 4px;
+
+  padding: 9px 24px;
+
+  font-size: 14px;
+  font-weight: bolder;
+  width: 150px;
+  background: var(--admin-primary);
+  color: #fff;
+  text-decoration: none;
+  margin-left:1rem;
 }
 
 .add-btn:hover {

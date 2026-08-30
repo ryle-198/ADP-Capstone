@@ -114,7 +114,7 @@ onMounted(() => {
 
 <template>
 
-    <main class="customers-page">
+    <main class="admin-page">
 
         <!-- HEADER -->
 
@@ -134,7 +134,7 @@ onMounted(() => {
                 class="add-btn"
                 @click="openAddCustomer"
             >
-                + Add Customer
+                 Add Customer
             </button>
 
         </div>
@@ -316,12 +316,12 @@ onMounted(() => {
 
                         <td class="actions">
 
-                            <button class="edit-btn">
-                                Edit
-                            </button>
+<!--                            <button class="edit-btn">-->
+<!--                                Edit-->
+<!--                            </button>-->
 
                             <button
-                                class="delete-btn"
+                                class="btn-danger"
                                 @click="deleteCustomer(customer.customerId)"
                             >
                                 Delete
@@ -413,19 +413,20 @@ onMounted(() => {
 
 .add-btn {
 
-    padding: 0.7rem 1.2rem;
+  display: grid;
+  justify-content: center;
 
-    border: none;
+  border: none;
+  border-radius: 4px;
 
-    border-radius: 999px;
+  padding: 9px 24px;
 
-    background: var(--primary-container);
-
-    color: white;
-
-    cursor: pointer;
-
-    font-size: 0.9rem;
+  font-size: 14px;
+  font-weight: bolder;
+  width: 150px;
+  background: var(--admin-primary);
+  color: #fff;
+  text-decoration: none;
 }
 
 

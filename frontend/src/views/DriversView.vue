@@ -88,7 +88,7 @@ fetchDrivers()
       </div>
     </div>
 
-    <div class="card">
+    <div class="card0">
       <div class="search-bar">
         <input
             v-model="search"
@@ -186,21 +186,30 @@ fetchDrivers()
 }
 
 .search-bar {
-  padding: 1.25rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+  /* //padding: 1.25rem;
+  //display: flex;
+  //gap: 1rem;
+  //align-items: center; */
+  margin-bottom: 1.5rem;
 }
 
 .search-input {
-  border: 1px solid var(--outline-variant);
-  border-radius: 2rem;
-  padding: 0.6rem 1rem;
+
   width: 100%;
-  max-width: 400px;
-  font-size: 0.9rem;
+
+  max-width: 450px;
+
+  padding: 0.7rem 1rem;
+
+  border: 1px solid var(--outline-variant);
+
+  border-radius: 2rem;
+
+  background: var(--surface-container-lowest);
+
+  color: var(--on-surface);
+
   outline: none;
-  transition: 0.2s ease-in-out;
 }
 
 .search-input:focus {
@@ -209,14 +218,28 @@ fetchDrivers()
 }
 
 .add-btn {
-  padding: 0.5rem 1.2rem;
-  border-radius: 999px;
+  /* //padding: 0.5rem 1.2rem;
+  //border-radius: 999px;
+  //border: none;
+  //background: var(--primary-container);
+  //color: white;
+  //font-size: 0.85rem;
+  //cursor: pointer;
+  //transition: 0.2s; */
+
+
   border: none;
-  background: var(--primary-container);
-  color: white;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: 0.2s;
+  border-radius: 4px;
+
+  padding: 9px 24px;
+
+  font-size: 14px;
+  font-weight: bolder;
+  width: 150px;
+  background: var(--admin-primary);
+  color: #fff;
+  text-decoration: none;
+  margin-left:1rem;
 }
 
 .add-btn:hover {

@@ -6,7 +6,7 @@ import { ref } from 'vue'
   <header class="navbar">
     <div class="navbar-inner">
 
-      <router-link to="/" class="logo">NAME</router-link>
+      <router-link to="/" class="logo">SWIFT</router-link>
 
       <nav class="nav-links">
         <a href="#track" class="nav-link">Track</a>
@@ -19,13 +19,13 @@ import { ref } from 'vue'
       </nav>
 
       <div class="nav-actions">
-        <router-link to="/login" class="login-link">
+        <router-link to="/portal-x7q2/login" class="login-link">
           Login
         </router-link>
 
-        <button class="ship-button">
-          Ship Now
-        </button>
+<!--        <button class="ship-button">-->
+<!--          Ship Now-->
+<!--        </button>-->
 
       </div>
     </div>

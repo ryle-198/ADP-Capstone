@@ -18,6 +18,8 @@ const form = ref({
     specialInstructions: ''
 })
 
+const errorMessage = ref('')
+
 onMounted(()=>{
     if(isEdit){
         deliveryOrderService.getById(route.params.id).then((res)=>{
@@ -38,6 +40,8 @@ onMounted(()=>{
 })
 
 function submit(){
+  errorMessage.value = ''
+
     const payload ={
         orderId: form.value.orderId,
         customer:{customerId: form.value.customerId},
@@ -51,9 +55,21 @@ function submit(){
 
     const action = isEdit
         ? deliveryOrderService.update(payload)
-        : deliveryOrderService.created(payload)
+        : deliveryOrderService.create(payload)
 
         action.then(()=> router.push('/orders'))
+        .catch((err)=>{
+          if(err.response?.status === 500){
+            errorMessage.value = `Customer ID "${form.value.customerId}" does not exist. Please check the ID and try again`
+          }
+          else{
+            errorMessage.value = 'Something went wrong while saving this order. Please try again.'
+          }
+        })
+}
+
+function cancel(){
+router.push('/orders')
 }
 </script>
 
@@ -149,6 +165,7 @@ function submit(){
 
           <div class="form-actions">
             <button type="button" class="btn-cancel" @click="cancel">Cancel</button>
+            <p v-if="errorMessage" class ="error-banner">{{errorMessage}}</p>
             <button type="submit" class="btn-submit">
               {{ isEdit ? 'Update Order' : 'Create Order' }}
             </button>
@@ -336,4 +353,13 @@ function submit(){
   opacity: 0.9;
 }
 
+.error-banner {
+  /*background: rgba(255, 180, 171, 0.1);*/
+  /*border: 1px solid rgba(255, 180, 171, 0.3);*/
+  color: #ffb4ab;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
 </style>

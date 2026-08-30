@@ -151,8 +151,8 @@ onMounted(() => {
   <div class="admin-page">
 
     <div class="page-header">
-      <h1>VEHICLE</h1>
-      <p>Manage all vehicles registered in the delivery system.</p>
+      <h1 class="text-center">VEHICLE</h1>
+      <p class ="subtitle">Manage all vehicles registered in the delivery system.</p>
     </div>
 
     <div v-if="success" class="success-message">
@@ -467,19 +467,21 @@ onMounted(() => {
 <style scoped>
 
 .page-header {
-  margin-bottom: 30px;
-  text-align: center;
+  flex-direction: column;
+  align-items: flex-start;
+  //margin-bottom: 30px;
+  //text-align: center;
 }
 
 .page-header h1 {
-  color: var(--on-surface);
-  margin-bottom: 0 0 15px 0;
-  text-align: center;
+  //color: var(--on-surface);
+  //margin-bottom: 0 0 15px 0;
+  //text-align: center;
 }
 
 .page-header p {
-  color: var(--on-surface-variant);
-  text-align: center;
+  //color: var(--on-surface-variant);
+  //text-align: center;
 }
 
 
@@ -622,12 +624,17 @@ onMounted(() => {
   font: inherit;
 }
 
-.primary-button {
-  color: white;
+.primary-button {  border: none;
+  border-radius: 4px;
 
-  background: var(--primary-container);
+  padding: 9px 24px;
 
-  border: none;
+  font-size: 14px;
+  font-weight: bolder;
+  width: 150px;
+  background: var(--admin-primary);
+  color: #fff;
+  text-decoration: none;
 }
 
 .secondary-button,

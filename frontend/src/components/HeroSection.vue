@@ -118,7 +118,7 @@ const trackShipment = () => {
   inset: 0;
 
   background-image:
-    url('https://lh3.googleusercontent.com/aida-public/AB6AXuA-ZCGFCX7JwyccdeT3TB6YTINqmvgkpKWDgL7u0YS8H4oD-bQ--w8_RXuWKY6zJyZSZQ6fApBxnVj3Bq_5HdcZEJQmEUY15QVI95DalnxRR9YcbCWEdxdinBCgtTnwmYLfy5ejC642Erpvj8gWVj6HeDuqFUH2Kh9_SfuxR-V7TMEah58tE5lVNthP34r4y3Kqsi-HVvQ9YM4sERC58ebI80MQKbtvuPW49nG2rE4ncnr_n-zIYQSr');
+    url('../assets/hero-background.jpg');
 
   background-size: cover;
   background-position: center;

@@ -7,11 +7,11 @@
       <div class="footer-brand">
 
         <span class="footer-logo">
-          Name
+          SWIFT
         </span>
 
         <p class="footer-copyright">
-          © 2024 Name Logistics.
+          © 2026 SWIFT Logistics.
           Reliable. Fast. Precise.
         </p>
 

@@ -33,7 +33,12 @@ async function handleLogin(){
 
 <template>
 <div class="login-page">
-    <form class ="login-card" @submit.prevent="handleLogin">
+  <div class="login-header">
+    <h2 class="header">Login Creds:</h2>
+    <p>username: <span style="color:#4edea3">admin</span></p>
+    <p>password: <span style="color:#4edea3">admin</span></p>
+  </div>
+  <form class ="login-card" @submit.prevent="handleLogin">
         <h1>Admin Login</h1>
         <input v-model="username" type="text" placeholder="Username" autocomplete="username"/>
         <input v-model="password" type="password" placeholder="Password" autocomplete="current-password"/>
@@ -50,8 +55,16 @@ async function handleLogin(){
     align-items: center;
     justify-content: center;
     background: var(--dark);
+    flex-direction: column;
 }
 
+.login-header{
+ margin-bottom: 1rem;
+}
+
+.header{
+  margin-bottom:1rem;
+}
 .login-card{
     background: var(--dark-alt);
     padding: 2rem;
