@@ -10,7 +10,7 @@
 
 # Term 3 Deliverable Information
 
----
+
 
 For this phase of the capstone project, we created a frontend application to consume our RESTful web services.
 
