@@ -38,7 +38,7 @@ public class ShipmentController {
         return shipmentService.delete(id);
     }
 
-    @GetMapping("/getall")
+    @GetMapping("/getAll")
     public List<Shipment> getAll() {
         return shipmentService.getAll();
     }
