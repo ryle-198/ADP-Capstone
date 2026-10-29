@@ -7,13 +7,12 @@ Author: Litha Owethu Mazibuko (240143485)
 Date: 2026
 */
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "vehicle")
@@ -37,6 +36,7 @@ public class Vehicle {
 
     @Id
     private String vehicleId;
+    @Column(unique = true)
     private String numberPlate;
 
     @Enumerated(EnumType.STRING)
@@ -48,6 +48,10 @@ public class Vehicle {
     private VehicleStatus currentStatus;
     private float mileage;
     private LocalDate lastService;
+
+    @OneToMany(mappedBy = "vehicle")
+    @JsonIgnore
+    private List<Route> routes = new ArrayList<>();
 
     public Vehicle() {
     }
@@ -78,6 +82,7 @@ public class Vehicle {
         this.currentStatus = builder.currentStatus;
         this.mileage = builder.mileage;
         this.lastService = builder.lastService;
+        this.routes = builder.routes;
     }
 
 
@@ -109,6 +114,8 @@ public class Vehicle {
         return lastService;
     }
 
+    public List<Route> getRoutes(){return routes;}
+
     @Override
     public String toString() {
         return "Vehicle{" +
@@ -131,6 +138,7 @@ public class Vehicle {
         private VehicleStatus currentStatus;
         private float mileage;
         private LocalDate lastService;
+        private List<Route> routes = new ArrayList<>();
 
         public Builder setVehicleId(String vehicleId) {
             this.vehicleId = vehicleId;
@@ -167,6 +175,10 @@ public class Vehicle {
             return this;
         }
 
+        public Builder setRoutes(List<Route> routes){
+        this.routes = routes == null ? new ArrayList<>() : routes;
+        return this;}
+
         public Builder copy(Vehicle vehicle) {
             this.vehicleId = vehicle.vehicleId;
             this.numberPlate = vehicle.numberPlate;
@@ -175,6 +187,7 @@ public class Vehicle {
             this.currentStatus = vehicle.currentStatus;
             this.mileage = vehicle.mileage;
             this.lastService = vehicle.lastService;
+            this.routes = vehicle.routes == null ? new ArrayList<>() : new ArrayList<>(vehicle.routes);
 
             return this;
         }

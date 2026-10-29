@@ -1,10 +1,13 @@
 package za.ac.cput.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 DeliveryOrders.java
@@ -37,33 +40,41 @@ public class DeliveryOrders {
     private String orderId;
     private LocalDate orderDate;
     private LocalDate deliveryDate;
+    @Enumerated(EnumType.STRING)
     private Status deliveryStatus;
+    @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
     private float totalCost;
     private String specialInstructions;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
 //    @JsonBackReference // to stop stackoverflow due to bidirectional relationship but this causes issue of not retrieving customer id
-    @JsonIgnoreProperties({"orders"})
+    @JsonIgnoreProperties({"orders", "hibernateLazyInitializer", "handler"})
     private Customer customer;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Shipment> shipments = new ArrayList<>();
 
 
     public DeliveryOrders() {
     }
 
-    public DeliveryOrders(String orderId, Customer customer, LocalDate orderDate,
-                          LocalDate deliveryDate, Status deliveryStatus, PaymentStatus paymentStatus,
-                          float totalCost, String specialInstructions) {
-
-        this.orderId = orderId;
-        this.customer = customer;
-        this.orderDate = orderDate;
-        this.deliveryDate = deliveryDate;
-        this.deliveryStatus = deliveryStatus;
-        this.paymentStatus = paymentStatus;
-        this.totalCost = totalCost;
-        this.specialInstructions = specialInstructions;
-    }
+//    public DeliveryOrders(String orderId, Customer customer, LocalDate orderDate,
+//                          LocalDate deliveryDate, Status deliveryStatus, PaymentStatus paymentStatus,
+//                          float totalCost, String specialInstructions, List<Shipment> shipments) {
+//
+//        this.orderId = orderId;
+//        this.customer = customer;
+//        this.orderDate = orderDate;
+//        this.deliveryDate = deliveryDate;
+//        this.deliveryStatus = deliveryStatus;
+//        this.paymentStatus = paymentStatus;
+//        this.totalCost = totalCost;
+//        this.specialInstructions = specialInstructions;
+//        this.shipments = shipments;
+//    }
 
     public DeliveryOrders(Builder builder){
         this.orderId=builder.orderId;
@@ -74,6 +85,7 @@ public class DeliveryOrders {
         this.paymentStatus=builder.paymentStatus;
         this.totalCost=builder.totalCost;
         this.specialInstructions=builder.specialInstructions;
+        this.shipments = builder.shipments;
 
     }
 
@@ -109,6 +121,8 @@ public class DeliveryOrders {
         return specialInstructions;
     }
 
+    public List<Shipment> getShipments(){return shipments;}
+
     @Override
     public String toString() {
         return "DeliveryOrders{" +
@@ -132,6 +146,7 @@ public class DeliveryOrders {
         private PaymentStatus paymentStatus;
         private float totalCost;
         private String specialInstructions;
+        private List<Shipment> shipments = new ArrayList<>();
 
         public Builder setOrderId(String orderId){
             this.orderId=orderId;
@@ -172,6 +187,11 @@ public class DeliveryOrders {
             return this;
         }
 
+        public Builder setShipments(List<Shipment> shipments){
+            this.shipments = shipments == null ? new ArrayList<>() : shipments;
+            return this;
+        }
+
         public Builder copy(DeliveryOrders order){
             this.orderId=order.orderId;
             this.customer=order.customer;
@@ -181,6 +201,7 @@ public class DeliveryOrders {
             this.paymentStatus=order.paymentStatus;
             this.totalCost=order.totalCost;
             this.specialInstructions=order.specialInstructions;
+            this.shipments = order.shipments == null ? new ArrayList<>() : new ArrayList<>(order.shipments);
 
             return this;
         }

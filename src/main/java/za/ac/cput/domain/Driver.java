@@ -5,10 +5,11 @@ Driver module class
 Author: Angel Dineo Masonganye (223008869)
 Date: 2026
  */
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -17,9 +18,14 @@ public class Driver {
     private String id;
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String licenseNumber;
     private String phoneNumber;
     private boolean availability;
+
+    @OneToMany(mappedBy = "driver")
+    @JsonIgnore
+    private List<Route> routes = new ArrayList<>();
 
     public Driver() {}
 
@@ -30,6 +36,7 @@ public class Driver {
         this.licenseNumber = builder.licenseNumber;
         this.phoneNumber = builder.phoneNumber;
         this.availability = builder.availability;
+        this.routes = builder.routes;
     }
 
     @PrePersist
@@ -45,6 +52,7 @@ public class Driver {
     public String getLicenseNumber() { return licenseNumber; }
     public String getPhoneNumber() { return phoneNumber; }
     public boolean isAvailability() { return availability; }
+    public List<Route> getRoutes(){return routes;}
 
     @Override
     public String toString() {
@@ -65,6 +73,7 @@ public class Driver {
         private String licenseNumber;
         private String phoneNumber;
         private boolean availability;
+        private List<Route> routes = new ArrayList<>();
 
         public Builder setId(String id) { this.id = id; return this; }
         public Builder setFirstName(String firstName) { this.firstName = firstName; return this; }
@@ -72,6 +81,10 @@ public class Driver {
         public Builder setLicenseNumber(String licenseNumber) { this.licenseNumber = licenseNumber; return this; }
         public Builder setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; return this; }
         public Builder setAvailability(boolean availability) { this.availability = availability; return this; }
+        public Builder setRoutes(List<Route> routes){
+            this.routes=routes == null ? new ArrayList<>() : routes ;
+            return this;
+        }
         public Builder copy(Driver driver) {
             this.id = driver.id;
             this.firstName = driver.firstName;
@@ -79,6 +92,7 @@ public class Driver {
             this.licenseNumber = driver.licenseNumber;
             this.phoneNumber = driver.phoneNumber;
             this.availability = driver.availability;
+            this.routes = driver.routes == null ? new ArrayList<>() : new ArrayList<>(driver.routes);
             return this;
         }
         public Driver build() { return new Driver(this); }

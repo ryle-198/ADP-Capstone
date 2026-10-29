@@ -20,14 +20,13 @@ public class DeliveryOrdersFactory {
                                                      float totalCost, String specialInstructions){
 
         if(Helper.isEmptyOrNull(orderId)||
-//           Helper.isEmptyOrNull(customerId) ||
                 Helper.isEmptyOrNull(specialInstructions)
         ){
             return null;
         }
 
         if(Helper.isValidType(orderDate) || Helper.isValidType(deliveryDate) ||
-                Helper.isValidType(deliveryStatus) || Helper.isValidType(paymentStatus)){
+                Helper.isValidType(deliveryStatus) || Helper.isValidType(paymentStatus) || Helper.isValidType(customer)){
             return null;
         }
 

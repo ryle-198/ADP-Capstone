@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -19,11 +20,12 @@ public class Customer {
     private String customerId;
     private String customerName;
     private String phoneNumber;
+    @Column(unique = true)
     private String email;
     private String address;
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 //    @JsonManagedReference // to stop stackoverflow due to bidirectional relationship
-    private List<DeliveryOrders> orders;
+    private List<DeliveryOrders> orders = new ArrayList<>();
 
     public Customer() {
 
@@ -87,7 +89,7 @@ public class Customer {
         private String phoneNumber;
         private String email;
         private String address;
-        private List<DeliveryOrders> orders;
+        private List<DeliveryOrders> orders = new ArrayList<>();
 
 
 
@@ -117,7 +119,7 @@ public class Customer {
         }
 
         public Builder setOrders(List<DeliveryOrders> orders){
-            this.orders = orders;
+            this.orders = orders == null ? new ArrayList<>() : orders;
             return this;
         }
 
@@ -127,6 +129,7 @@ public class Customer {
             this.phoneNumber = customer.phoneNumber;
             this.email = customer.email;
             this.address = customer.address;
+            this.orders = customer.orders == null ? new ArrayList<>() : new ArrayList<>(customer.orders);
 
             return this;
         }

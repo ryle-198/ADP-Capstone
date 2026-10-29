@@ -1,5 +1,7 @@
 package za.ac.cput.factory;
 
+import za.ac.cput.domain.DeliveryOrders;
+import za.ac.cput.domain.Route;
 import za.ac.cput.domain.Shipment;
 import za.ac.cput.util.Helper;
 
@@ -12,15 +14,14 @@ Date: 2026
 
 public class ShipmentFactory {
 
-    public static Shipment createShipment(String shipmentId, String orderId,
-                                          String routeId,
+    public static Shipment createShipment(String shipmentId, DeliveryOrders order,
+                                          Route route,
                                           String originAddress,
                                           String destinationAddress,
                                           Shipment.Status status,
                                           boolean fragile) {
 
-        if(Helper.isEmptyOrNull(shipmentId)|| Helper.isEmptyOrNull(orderId)
-           || Helper.isEmptyOrNull(routeId)|| Helper.isEmptyOrNull(originAddress)|| Helper.isEmptyOrNull(destinationAddress)){
+        if(Helper.isEmptyOrNull(shipmentId)|| Helper.isEmptyOrNull(originAddress)|| Helper.isEmptyOrNull(destinationAddress) || Helper.isValidType(order)){
             return null;
         }
 
@@ -31,8 +32,8 @@ public class ShipmentFactory {
 
         return new Shipment.Builder()
                 .setShipmentId(shipmentId)
-                .setOrderId(orderId)
-                .setRouteId(routeId)
+                .setOrder(order)
+                .setRoute(route)
                 .setOriginAddress(originAddress)
                 .setDestinationAddress(destinationAddress)
                 .setStatus(status)

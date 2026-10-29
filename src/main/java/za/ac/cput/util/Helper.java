@@ -4,22 +4,19 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 public class Helper {
     public static boolean isEmptyOrNull(String str) {
-        if (str == null || str.isEmpty()) {
+        if (str == null || str.isBlank()) {
             return true;
         }
         return false;
     }
 
     public static boolean isNumNeg(float num) {
-        if (num < 0) {
-            return true;
-        }
-        return false;
+        return Float.isNaN(num) || num < 0;
     }
 
     public static boolean isValidEmail(String email) {
-        EmailValidator vaildator = EmailValidator.getInstance();
-        return vaildator.isValid(email);
+        EmailValidator validator = EmailValidator.getInstance();
+        return validator.isValid(email);
     }
 
     public static <T> boolean isValidType(T t) {

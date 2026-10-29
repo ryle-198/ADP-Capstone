@@ -1,7 +1,8 @@
 package za.ac.cput.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
 /*
 Shipment.java
@@ -33,21 +34,32 @@ public class Shipment {
 
     @Id
     private String shipmentId;
-    private String orderId;
-    private String routeId;
     private String originAddress;
     private String destinationAddress;
-    private Status status;
+//    private Status status;
     private boolean fragile;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="order_id")
+    @JsonIgnoreProperties({"shipments", "hibernateLazyInitializer", "handler"})
+    private DeliveryOrders order;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="route_id")
+    @JsonIgnoreProperties({"shipments", "hibernateLazyInitializer", "handler"})
+    private Route route;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     public Shipment() {
 
     }
 
-    public Shipment(String shipmentId, String orderId, String routeId, String originAddress, String destinationAddress, Status status, boolean fragile) {
+    public Shipment(String shipmentId, DeliveryOrders order, Route route, String originAddress, String destinationAddress, Status status, boolean fragile) {
         this.shipmentId = shipmentId;
-        this.orderId = orderId;
-        this.routeId = routeId;
+        this.order = order;
+        this.route = route;
         this.originAddress = originAddress;
         this.destinationAddress = destinationAddress;
         this.status = status;
@@ -56,8 +68,8 @@ public class Shipment {
 
     public Shipment(Builder builder){
         this.shipmentId= builder.shipmentId;
-        this.orderId= builder.orderId;
-        this.routeId= builder.routeId;
+        this.order= builder.order;
+        this.route= builder.route;
         this.originAddress= builder.originAddress;
         this.destinationAddress = builder.destinationAddress;
         this.status = builder.status;
@@ -68,12 +80,12 @@ public class Shipment {
         return shipmentId;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public DeliveryOrders getOrder() {
+        return order;
     }
 
-    public String getRouteId() {
-        return routeId;
+    public Route getRoute() {
+        return route;
     }
 
     public String getOriginAddress() {
@@ -96,8 +108,8 @@ public class Shipment {
     public String toString() {
         return "Shipment{" +
                 "shipmentId='" + shipmentId + '\'' +
-                ", orderId='" + orderId + '\'' +
-                ", routeId='" + routeId + '\'' +
+                ", orderId='" + (order != null ? order.getOrderId() : null) + '\'' +
+                ", routeId='" + (route != null ? route.getRouteId() : null) + '\'' +
                 ", originAddress='" + originAddress + '\'' +
                 ", destinationAddress='" + destinationAddress + '\'' +
                 ", status=" + status +
@@ -107,8 +119,8 @@ public class Shipment {
 
     public static class Builder {
         private String shipmentId;
-        private String orderId;
-        private String routeId;
+        private DeliveryOrders order;
+        private Route route;
         private String originAddress;
         private String destinationAddress;
         private Status status;
@@ -119,13 +131,13 @@ public class Shipment {
             return this;
         }
 
-        public Builder setOrderId(String orderId){
-            this.orderId=orderId;
+        public Builder setOrder(DeliveryOrders order){
+            this.order=order;
             return this;
         }
 
-        public Builder setRouteId(String routeId){
-            this.routeId=routeId;
+        public Builder setRoute(Route route){
+            this.route=route;
             return this;
         }
 
@@ -146,6 +158,17 @@ public class Shipment {
 
         public Builder setFragile(boolean fragile){
             this.fragile = fragile;
+            return this;
+        }
+
+        public Builder copy(Shipment shipment){
+            this.shipmentId=shipment.shipmentId;
+            this.order = shipment.order;
+            this.route=shipment.route;
+            this.originAddress=shipment.originAddress;
+            this.destinationAddress=shipment.destinationAddress;
+            this.status=shipment.status;
+            this.fragile=shipment.fragile;
             return this;
         }
 

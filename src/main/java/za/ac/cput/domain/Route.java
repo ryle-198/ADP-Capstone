@@ -1,7 +1,11 @@
 package za.ac.cput.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 Route.java
@@ -13,18 +17,34 @@ Date: 2026
 public class Route {
     @Id
     private String routeId;
-    private String driverId;
     private String startLocation;
     private String endLocation;
     private float distance;
     private int estimateTime;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "driver_id")
+    @JsonIgnoreProperties({"routes", "hibernateLazyInitializer", "handler"})
+    private Driver driver;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicle_id")
+    @JsonIgnoreProperties({"routes", "hibernateLazyInitializer", "handler"})
+    private Vehicle vehicle;
+
+    @OneToMany(mappedBy = "route")
+    @JsonIgnore
+    private List<Shipment> shipments = new ArrayList<>();
+
 
     public Route() {
     }
 
     private Route(Builder builder) {
         this.routeId = builder.routeId;
-        this.driverId = builder.driverId;
+        this.driver = builder.driver;
+        this.vehicle = builder.vehicle;
+        this.shipments = builder.shipments;
         this.startLocation = builder.startLocation;
         this.endLocation = builder.endLocation;
         this.distance = builder.distance;
@@ -35,9 +55,13 @@ public class Route {
         return routeId;
     }
 
-    public String getDriverId() {
-        return driverId;
+    public Driver getDriver() {
+        return driver;
     }
+
+    public Vehicle getVehicle() {return vehicle;}
+
+    public List<Shipment> getShipments() {return shipments;}
 
     public String getStartLocation() {
         return startLocation;
@@ -57,19 +81,22 @@ public class Route {
 
     @Override
     public String toString() {
-        return "Routes{" +
+        return "Route{" +
                 "routeId='" + routeId + '\'' +
-                ", driverId='" + driverId + '\'' +
                 ", startLocation='" + startLocation + '\'' +
                 ", endLocation='" + endLocation + '\'' +
                 ", distance=" + distance +
                 ", estimateTime=" + estimateTime +
+                ", driverId='" + (driver != null ? driver.getId() : null) + '\'' +
+                ", vehicleId='" + (vehicle != null ? vehicle.getVehicleId() : null) + '\'' +
                 '}';
     }
 
     public static class Builder {
         private String routeId;
-        private String driverId;
+        private Driver driver;
+        private Vehicle vehicle;
+        private List<Shipment> shipments = new ArrayList<>();
         private String startLocation;
         private String endLocation;
         private float distance;
@@ -80,8 +107,18 @@ public class Route {
             return this;
         }
 
-        public Builder setDriverId(String driverId) {
-            this.driverId = driverId;
+        public Builder setDriver(Driver driver) {
+            this.driver = driver;
+            return this;
+        }
+
+        public Builder setVehicle(Vehicle vehicle) {
+            this.vehicle = vehicle;
+            return this;
+        }
+
+        public Builder setShipments(List<Shipment> shipments){
+            this.shipments=shipments == null ? new ArrayList<>() : shipments;
             return this;
         }
 
@@ -107,7 +144,9 @@ public class Route {
 
         public Builder copy(Route route) {
             this.routeId = route.routeId;
-            this.driverId = route.driverId;
+            this.driver = route.driver;
+            this.vehicle = route.vehicle;
+            this.shipments = route.shipments == null ? new ArrayList<>() : new ArrayList<>(route.shipments);
             this.startLocation = route.startLocation;
             this.endLocation = route.endLocation;
             this.distance = route.distance;
