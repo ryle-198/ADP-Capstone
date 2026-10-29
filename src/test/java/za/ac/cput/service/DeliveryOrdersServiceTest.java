@@ -35,17 +35,13 @@ class DeliveryOrdersServiceTest {
 
     static DeliveryOrders order1;
     static DeliveryOrders order2;
-
-    static List<DeliveryOrders> orderList = new ArrayList<>();
-
     private static Customer customer ;
 
 
     @BeforeEach
     void setup() {
-        customer = CustomerFactory.createCustomer("CUST-23451", "Yamkela", "0732510842"
-                , "yamkela197@gmail.com"
-                , "14 Aquarius Av Sandrift Milnerton 7441", orderList);
+        customer = CustomerFactory.createCustomer("CUST-SVC01", "Yamkela", "0732510842",
+                "customer.svc@example.com", "14 Aquarius Av", new ArrayList<>());
         customerRepository.save(customer);
         order1 = DeliveryOrdersFactory.createDeliveryOrder("001", customer, orderDate, deliveryDate, deliveryStatus, paymentStatus, 444f, "None");
         order2 = DeliveryOrdersFactory.createDeliveryOrder("002", customer , orderDate, deliveryDate, deliveryStatus, paymentStatus, 500f, "Place at front of the door");

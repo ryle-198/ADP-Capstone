@@ -1,7 +1,12 @@
 package za.ac.cput.factory;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import za.ac.cput.domain.Shipment;
+import za.ac.cput.domain.*;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
@@ -12,13 +17,26 @@ Date: 2026
  */
 
 public class ShipmentFactoryTest {
+    private DeliveryOrders order;
+    private Route route;
+
+    @BeforeEach
+    void setUp() {
+        Customer customer = CustomerFactory.createCustomer("CUST-1", "Yamkela", "0732510842",
+                "yamkela197@gmail.com", "14 Aquarius Av", new ArrayList<>());
+        order = DeliveryOrdersFactory.createDeliveryOrder("ORD001", customer, LocalDate.of(2026, 3, 25),
+                LocalDate.of(2026, 4, 1), DeliveryOrders.Status.OrderPlaced,
+                DeliveryOrders.PaymentStatus.PENDING, 444f, "None");
+        Driver driver = DriverFactory.buildDriver("Peter", "Burger", "LIC123456", "0821234567", true);
+        route = RouteFactory.createRoute("RT001", driver, null, "Cape Town", "Johannesburg", 1400f, 900);
+    }
 
     @Test
     public void testCreateShipment_Success() {
         Shipment shipment = ShipmentFactory.createShipment(
                 "SHP001",
-                "ORD001",
-                "RT001",
+                order,
+                route,
                 "Cape Town",
                 "Johannesburg",
                 Shipment.Status.IN_TRANSIT,
@@ -27,8 +45,8 @@ public class ShipmentFactoryTest {
 
         assertNotNull(shipment);
         assertEquals("SHP001", shipment.getShipmentId());
-        assertEquals("ORD001", shipment.getOrderId());
-        assertEquals("RT001", shipment.getRouteId());
+        assertEquals("ORD001", shipment.getOrder().getOrderId());
+        assertEquals("RT001", shipment.getRoute().getRouteId());
         assertEquals("Cape Town", shipment.getOriginAddress());
         assertEquals("Johannesburg", shipment.getDestinationAddress());
         assertEquals(Shipment.Status.IN_TRANSIT, shipment.getStatus());
@@ -40,8 +58,8 @@ public class ShipmentFactoryTest {
     public void testCreateShipment_NullShipmentId() {
         Shipment shipment = ShipmentFactory.createShipment(
                 null,
-                "ORD002",
-                "RT002",
+                order,
+                route,
                 "Cape Town",
                 "Durban",
                 Shipment.Status.IN_TRANSIT,
@@ -55,8 +73,8 @@ public class ShipmentFactoryTest {
     public void testCreateShipment_EmptyOriginAddress() {
         Shipment shipment = ShipmentFactory.createShipment(
                 "SHP003",
-                "ORD003",
-                "RT003",
+                order,
+                route,
                 "",
                 "Pretoria",
                 Shipment.Status.DELIVERED,

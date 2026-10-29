@@ -13,6 +13,8 @@ import za.ac.cput.domain.Driver;
 import za.ac.cput.factory.DriverFactory;
 import za.ac.cput.service.DriverService;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -24,8 +26,8 @@ public class DriverServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        driver = DriverFactory.buildDriver(
-                "Angel", "Masonganye", "LIC223008869", "0821234567", true);
+        driver = DriverFactory.buildDriver("Angel", "Masonganye",
+                "LIC" + UUID.randomUUID().toString().substring(0, 8), "0821234567", true);
     }
 
     @Test
