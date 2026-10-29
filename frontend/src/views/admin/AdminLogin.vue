@@ -35,8 +35,8 @@ async function handleLogin(){
 <div class="login-page">
   <div class="login-header">
     <h2 class="header">Login Creds:</h2>
-    <p>username: <span style="color:#4edea3">admin</span></p>
-    <p>password: <span style="color:#4edea3">admin</span></p>
+<!--    <p>username: <span style="color:#4edea3">admin</span></p>-->
+<!--    <p>password: <span style="color:#4edea3">admin</span></p>-->
   </div>
   <form class ="login-card" @submit.prevent="handleLogin">
         <h1>Admin Login</h1>
