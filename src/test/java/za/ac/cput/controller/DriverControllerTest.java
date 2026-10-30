@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import za.ac.cput.domain.Driver;
 import za.ac.cput.factory.DriverFactory;
+import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -23,8 +24,8 @@ public class DriverControllerTest {
 
     @BeforeEach
     void setUp() {
-        driver = DriverFactory.buildDriver(
-                "Angel", "Masonganye", "LIC223008869", "0821234567", true);
+        driver = DriverFactory.buildDriver("Angel", "Masonganye",
+                "LIC" + UUID.randomUUID().toString().substring(0, 8), "0821234567", true);
     }
 
     @Test

@@ -4,27 +4,37 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import za.ac.cput.domain.Driver;
 import za.ac.cput.domain.Route;
+import za.ac.cput.factory.DriverFactory;
 import za.ac.cput.factory.RouteFactory;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class RouteControllerTest {
 
     protected final RestTemplate restTemplate = new RestTemplate();
     protected static String BASE_URL = "http://localhost:8080/freightanddelivery/route";
 
-    private static Route route1;
+    private final String ROOT = "http://localhost:8080/freightanddelivery";
+    private Driver driver;
+    private Route route1;
 
     @BeforeAll
-    static void setUp() {
-        route1 = RouteFactory.createRoute("R001",
-                                        "D001",
-                                        "Cape Town",
-                                        "Atlantis",
-                                        65.3f,
-                                        51);
+     void setUp() {
+        RestTemplate rest = new RestTemplate();
+        driver = rest.postForObject(ROOT + "/driver/create",
+                DriverFactory.buildDriver("Peter", "Burger",
+                        "LIC-RC-" + UUID.randomUUID().toString().substring(0, 8),
+                        "0821234567", true),
+                Driver.class);
+
+        route1 = RouteFactory.createRoute("R-RC01", driver, null,
+                "Cape Town", "Atlantis", 65.3f, 51);
     }
 
     @Test

@@ -1,24 +1,14 @@
 package za.ac.cput.controller;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.DeliveryOrders;
 import za.ac.cput.factory.CustomerFactory;
-import za.ac.cput.factory.DeliveryOrdersFactory;
-import za.ac.cput.repository.CustomerRepo.CustomerRepository;
-
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
@@ -38,32 +28,13 @@ class CustomerControllerTest {
             "http://localhost:8080/freightanddelivery/customer";
 
     protected static Customer customer;
-    static DeliveryOrders order1;
-    static DeliveryOrders order2;
-
-
-    static LocalDate orderDate = LocalDate.of(2026, Month.MARCH, 25);
-    static LocalDate deliveryDate = LocalDate.of(2026, Month.APRIL, 1);
-
-    static DeliveryOrders.Status deliveryStatus = DeliveryOrders.Status.OrderPlaced;
-    static DeliveryOrders.PaymentStatus paymentStatus = DeliveryOrders.PaymentStatus.PENDING;
-
-    static List<DeliveryOrders> orderList = new ArrayList<>();
-
 
     @BeforeAll
     public static void setUp() {
-
-        customer = CustomerFactory.createCustomer("CUST-23451", "Yamkela", "0732510842"
-                , "yamkela197@gmail.com"
-                , "14 Aquarius Av Sandrift Milnerton 7441", orderList);
-        order1 = DeliveryOrdersFactory.createDeliveryOrder("001", customer, orderDate, deliveryDate, deliveryStatus, paymentStatus, 444f, "None");
-        order2 = DeliveryOrdersFactory.createDeliveryOrder("002", customer , orderDate, deliveryDate, deliveryStatus, paymentStatus, 500f, "Place at front of the door");
-
-        orderList.add(order1);
-        orderList.add(order2);
+        customer = CustomerFactory.createCustomer("CUST-CC01", "Yamkela", "0732510842",
+                "customer.ctrl@example.com", "14 Aquarius Av Sandrift Milnerton 7441",
+                new ArrayList<>());
     }
-
 
     @Test
     void a_createCustomer() {

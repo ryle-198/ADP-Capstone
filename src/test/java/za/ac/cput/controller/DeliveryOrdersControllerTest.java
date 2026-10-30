@@ -1,15 +1,14 @@
 package za.ac.cput.controller;
 
 import org.junit.jupiter.api.*;
-
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.client.RestTemplate;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.DeliveryOrders;
 import za.ac.cput.factory.CustomerFactory;
 import za.ac.cput.factory.DeliveryOrdersFactory;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -17,45 +16,40 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class DeliveryOrdersControllerTest {
 
     protected final RestTemplate restTemplate = new RestTemplate();
+//    protected final RestTemplate restTemplate = authenticated();
     protected static String BASE_URL = "http://localhost:8080/freightanddelivery/deliveryOrders";
     protected static String CUSTOMER_URL = "http://localhost:8080/freightanddelivery/customer";
 
-    private static List<DeliveryOrders> orderList = new ArrayList<>();
-    protected static  DeliveryOrders order1;
-    static Customer customer;
-    private static boolean initialised = false;
+//Due to spring security, admin needs to be logged in to access the paths, authenticated method.
 
-    @BeforeEach
+//    static RestTemplate authenticated() {
+//        RestTemplate rt = new RestTemplate();
+//        rt.getInterceptors().add(new BasicAuthenticationInterceptor("admin", "admin"));
+//        return rt;
+//    }
+
+//    private static List<DeliveryOrders> orderList = new ArrayList<>();
+    private DeliveryOrders order1;
+     private Customer customer;
+//    private static boolean initialised = false;
+
+    @BeforeAll
     void setUp() {
-        if(initialised) return;//other test methods dont work withou this, only allows to post customer for first test, so other test dont run into the error of duplicate
+        RestTemplate rest = new RestTemplate();
+        customer = rest.postForObject(CUSTOMER_URL + "/create",
+                CustomerFactory.createCustomer("CUST-DC01", "Yamkela", "0732510842",
+                        "orders.ctrl@example.com", "14 Aquarius Av", new ArrayList<>()),
+                Customer.class);
 
-         LocalDate orderDate = LocalDate.of(2026, Month.MARCH, 25);
-         LocalDate deliveryDate = LocalDate.of(2026, Month.APRIL, 1);
-         DeliveryOrders.Status deliveryStatus = DeliveryOrders.Status.OrderPlaced;
-         DeliveryOrders.PaymentStatus paymentStatus = DeliveryOrders.PaymentStatus.PENDING;
-
-        customer = CustomerFactory.createCustomer("CUST-23451", "Yamkela", "0732510842"
-                ,"yamkela197@gmail.com"
-                ,"14 Aquarius Av Sandrift Milnerton 7441",orderList);
-
-        RestTemplate setUpCustomerTemplate = new RestTemplate();
-        ResponseEntity<Customer> customerResponse = setUpCustomerTemplate.postForEntity(CUSTOMER_URL+"/create", customer, Customer.class);
-        customer = customerResponse.getBody();
-
-                order1 = DeliveryOrdersFactory.createDeliveryOrder(
-                "001",
-                customer,
-                orderDate, deliveryDate,
-                deliveryStatus, paymentStatus,
-                19990.0f,"no special instructions"
-        );
-        orderList.add(order1);
-
-        initialised = true;
+        order1 = DeliveryOrdersFactory.createDeliveryOrder("ORD-DC01", customer,
+                LocalDate.of(2026, 3, 25), LocalDate.of(2026, 4, 1),
+                DeliveryOrders.Status.OrderPlaced, DeliveryOrders.PaymentStatus.PENDING,
+                19990.0f, "no special instructions");
     }
 
     @Test
