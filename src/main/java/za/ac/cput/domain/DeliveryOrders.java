@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /*
 DeliveryOrders.java
@@ -46,6 +47,10 @@ public class DeliveryOrders {
     private PaymentStatus paymentStatus;
     private float totalCost;
     private String specialInstructions;
+    private String pickupAddress;
+    private String deliveryAddress;
+    private float weightKg;
+    private String parcelDescription;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
@@ -85,8 +90,19 @@ public class DeliveryOrders {
         this.paymentStatus=builder.paymentStatus;
         this.totalCost=builder.totalCost;
         this.specialInstructions=builder.specialInstructions;
+        this.pickupAddress=builder.pickupAddress;
+        this.deliveryAddress=builder.deliveryAddress;
+        this.weightKg=builder.weightKg;
+        this.parcelDescription=builder.parcelDescription;
         this.shipments = builder.shipments;
 
+    }
+
+    @PrePersist
+    void generateId() {
+        if (this.orderId == null || this.orderId.isBlank()) {
+            this.orderId = "ORD-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        }
     }
 
     public String getOrderId() {
@@ -121,6 +137,22 @@ public class DeliveryOrders {
         return specialInstructions;
     }
 
+    public String getPickupAddress() {
+        return pickupAddress;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public float getWeightKg() {
+        return weightKg;
+    }
+
+    public String getParcelDescription() {
+        return parcelDescription;
+    }
+
     public List<Shipment> getShipments(){return shipments;}
 
     @Override
@@ -146,6 +178,10 @@ public class DeliveryOrders {
         private PaymentStatus paymentStatus;
         private float totalCost;
         private String specialInstructions;
+        private String pickupAddress;
+        private String deliveryAddress;
+        private float weightKg;
+        private String parcelDescription;
         private List<Shipment> shipments = new ArrayList<>();
 
         public Builder setOrderId(String orderId){
@@ -187,6 +223,26 @@ public class DeliveryOrders {
             return this;
         }
 
+        public Builder setPickupAddress(String pickupAddress){
+            this.pickupAddress=pickupAddress;
+            return this;
+        }
+
+        public Builder setDeliveryAddress(String deliveryAddress){
+            this.deliveryAddress=deliveryAddress;
+            return this;
+        }
+
+        public Builder setWeightKg(float weightKg){
+            this.weightKg=weightKg;
+            return this;
+        }
+
+        public Builder setParcelDescription(String parcelDescription){
+            this.parcelDescription=parcelDescription;
+            return this;
+        }
+
         public Builder setShipments(List<Shipment> shipments){
             this.shipments = shipments == null ? new ArrayList<>() : shipments;
             return this;
@@ -201,6 +257,10 @@ public class DeliveryOrders {
             this.paymentStatus=order.paymentStatus;
             this.totalCost=order.totalCost;
             this.specialInstructions=order.specialInstructions;
+            this.pickupAddress=order.pickupAddress;
+            this.deliveryAddress=order.deliveryAddress;
+            this.weightKg=order.weightKg;
+            this.parcelDescription=order.parcelDescription;
             this.shipments = order.shipments == null ? new ArrayList<>() : new ArrayList<>(order.shipments);
 
             return this;

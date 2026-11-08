@@ -3,7 +3,7 @@ package za.ac.cput.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Route;
-import za.ac.cput.service.RouteService;
+import za.ac.cput.service.Route.RouteService;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class RouteController{
         return this.service.delete(routeId);
     }
 
-    @GetMapping("getAllRoute")
+    @GetMapping("/getAllRoute")
     public List<Route> getAllRoutes(){
         return this.service.getAllRoutes();
     }

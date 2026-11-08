@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /*
 Route.java
@@ -49,6 +50,13 @@ public class Route {
         this.endLocation = builder.endLocation;
         this.distance = builder.distance;
         this.estimateTime = builder.estimateTime;
+    }
+
+    @PrePersist
+    public void generateId(){
+        if(this.routeId == null || this.routeId.isBlank()){
+            this.routeId = "RT-" + UUID.randomUUID().toString().substring(0,8).toUpperCase();
+        }
     }
 
     public String getRouteId() {

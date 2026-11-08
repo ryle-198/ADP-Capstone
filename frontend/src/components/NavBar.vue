@@ -19,14 +19,8 @@ import { ref } from 'vue'
       </nav>
 
       <div class="nav-actions">
-        <router-link to="/portal-x7q2/login" class="login-link">
-          Login
-        </router-link>
-
-<!--        <button class="ship-button">-->
-<!--          Ship Now-->
-<!--        </button>-->
-
+        <router-link to="/login" class="login-link">Login</router-link>
+        <router-link to="/register" class="ship-button">Sign up</router-link>
       </div>
     </div>
   </header>
@@ -147,19 +141,4 @@ import { ref } from 'vue'
 .ship-button:active {
   transform: scale(0.96);
 }
-/* 
-.mobile-menu-button {
-  display: none;
-
-  border: none;
-  background: transparent;
-
-  color: var(--primary);
-
-  padding: 8px;
-}
-
-.mobile-nav {
-  display: none;
-} */
 </style>

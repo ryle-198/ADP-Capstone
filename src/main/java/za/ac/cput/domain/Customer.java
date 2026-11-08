@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /*
 Customer.java
@@ -47,6 +48,13 @@ public class Customer {
         this.email = builder.email;
         this.address = builder.address;
         this.orders = builder.orders;
+    }
+
+    @PrePersist
+    public void generateId(){
+        if(this.customerId == null || this.customerId.isBlank()){
+            this.customerId = "CUS-" + UUID.randomUUID().toString().substring(0,8).toUpperCase();
+        }
     }
 
     public String getCustomerId() {

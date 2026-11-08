@@ -1,79 +1,105 @@
 <script setup>
-import{ref, onMounted} from 'vue'
+import{ref, computed, onMounted} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import deliveryOrderService from '../../services/deliveryOrderService'
+import customerService from '../../services/customerService'
+import LookupSelect from '../../components/LookupSelect.vue'
 
 const route = useRoute()
 const router = useRouter()
 const isEdit =!!route.params.id
 
 const form = ref({
-    orderId:'',
-    customerId:'',
-    orderDate: '',
-    deliveryDate: '',
-    deliveryStatus: 'OrderPlaced',
-    paymentStatus: 'PENDING',
-    totalCost: 0,
-    specialInstructions: ''
+  orderId:'',
+  customerId:'',
+  orderDate: '',
+  deliveryDate: '',
+  deliveryStatus: 'OrderPlaced',
+  paymentStatus: 'PENDING',
+  totalCost: 0,
+  pickupAddress: '',
+  deliveryAddress: '',
+  weightKg: '',
+  parcelDescription: '',
+  specialInstructions: ''
 })
 
 const errorMessage = ref('')
+const customers = ref([])
+
+const customerOptions = computed(() => customers.value.map(c => ({
+  value: c.customerId,
+  label: `${c.customerName} (${c.customerId})`
+})))
 
 onMounted(()=>{
-    if(isEdit){
-        deliveryOrderService.getById(route.params.id).then((res)=>{
-            const o = res.data
-            form.value = {
-                orderId: o.orderId,
-                customerId: o.customer?.customerId || '',
-                orderDate: o.orderDate,
-                deliveryDate: o.deliveryDate,
-                deliveryStatus: o.deliveryStatus,
-                paymentStatus: o.paymentStatus,
-                totalCost: o.totalCost,
-                specialInstructions: o.specialInstructions
+  customerService.getAll().then((res)=>{ customers.value = res.data })
+  if(isEdit){
+    deliveryOrderService.getById(route.params.id).then((res)=>{
+      const o = res.data
+      form.value = {
+        orderId: o.orderId,
+        customerId: o.customer?.customerId || '',
+        orderDate: o.orderDate,
+        deliveryDate: o.deliveryDate,
+        deliveryStatus: o.deliveryStatus,
+        paymentStatus: o.paymentStatus,
+        totalCost: o.totalCost,
+        pickupAddress: o.pickupAddress || '',
+        deliveryAddress: o.deliveryAddress || '',
+        weightKg: o.weightKg || '',
+        parcelDescription: o.parcelDescription || '',
+        specialInstructions: o.specialInstructions
 
-            }
-        })
-    }
+      }
+    })
+  }
 })
 
 function submit(){
   errorMessage.value = ''
 
-    const payload ={
-        orderId: form.value.orderId,
-        customer:{customerId: form.value.customerId},
-        orderDate: form.value.orderDate,
-        deliveryDate: form.value.deliveryDate,
-        deliveryStatus: form.value.deliveryStatus,
-        paymentStatus: form.value.paymentStatus,
-        totalCost: Number(form.value.totalCost),
-        specialInstructions: form.value.specialInstructions
-    }
+  if(!form.value.customerId){
+    errorMessage.value = 'Please choose a customer.'
+    return
+  }
 
-    const action = isEdit
-        ? deliveryOrderService.update(payload)
-        : deliveryOrderService.create(payload)
+  const payload ={
+    ...(isEdit ? {orderId: form.value.orderId} : {}),
+    customer:{customerId: form.value.customerId},
+    orderDate: form.value.orderDate,
+    deliveryDate: form.value.deliveryDate,
+    deliveryStatus: form.value.deliveryStatus,
+    paymentStatus: form.value.paymentStatus,
+    totalCost: Number(form.value.totalCost),
+    pickupAddress: form.value.pickupAddress,
+    deliveryAddress: form.value.deliveryAddress,
+    weightKg: Number(form.value.weightKg) || 0,
+    parcelDescription: form.value.parcelDescription,
+    specialInstructions: form.value.specialInstructions
+  }
 
-        action.then(()=> router.push('/orders'))
-        .catch((err)=>{
-          if(err.response?.status === 500){
-            errorMessage.value = `Customer ID "${form.value.customerId}" does not exist. Please check the ID and try again`
-          }
-          else{
-            errorMessage.value = 'Something went wrong while saving this order. Please try again.'
-          }
-        })
+  const action = isEdit
+      ? deliveryOrderService.update(payload)
+      : deliveryOrderService.create(payload)
+
+  action.then(()=> router.push('/orders'))
+      .catch((err)=>{
+        if(err.response?.status === 500){
+          errorMessage.value = 'Could not save the order. The chosen customer no longer exists.'
+        }
+        else{
+          errorMessage.value = 'Something went wrong while saving this order. Please try again.'
+        }
+      })
 }
 
 function cancel(){
-router.push('/orders')
+  router.push('/orders')
 }
 </script>
 
-<<template>
+<template>
   <main class="form-page">
     <div class="form-card">
       <div class="form-card-accent"></div>
@@ -86,36 +112,54 @@ router.push('/orders')
 
         <form @submit.prevent="submit" class="order-form">
           <div class="form-grid">
-            <div class="form-field">
+            <div class="form-field" v-if="isEdit">
               <label for="orderId">Order ID</label>
               <input
-                id="orderId"
-                v-model="form.orderId"
-                type="text"
-                :readonly="isEdit"
-                :class="{ readonly: isEdit }"
-                required
+                  id="orderId"
+                  v-model="form.orderId"
+                  type="text"
+                  readonly
+                  class="readonly"
               />
             </div>
 
             <div class="form-field">
-              <label for="customerId">Customer ID</label>
-              <input id="customerId" v-model="form.customerId" type="text" required />
+              <label>Customer</label>
+              <LookupSelect v-model="form.customerId" :options="customerOptions" placeholder="Search customers..." />
             </div>
 
             <div class="form-field">
-              <label for="totalCost">Total Cost</label>
+              <label for="totalCost">Total Cost (leave 0 to price by weight)</label>
               <div class="input-with-prefix">
                 <span class="prefix">R</span>
                 <input
-                  id="totalCost"
-                  v-model="form.totalCost"
-                  type="number"
-                  step="0.01"
-                  class="has-prefix"
-                  required
+                    id="totalCost"
+                    v-model="form.totalCost"
+                    type="number"
+                    step="0.01"
+                    class="has-prefix"
                 />
               </div>
+            </div>
+
+            <div class="form-field">
+              <label for="pickupAddress">Pickup Address</label>
+              <input id="pickupAddress" v-model="form.pickupAddress" type="text" required />
+            </div>
+
+            <div class="form-field">
+              <label for="deliveryAddress">Delivery Address</label>
+              <input id="deliveryAddress" v-model="form.deliveryAddress" type="text" required />
+            </div>
+
+            <div class="form-field">
+              <label for="weightKg">Weight (kg)</label>
+              <input id="weightKg" v-model="form.weightKg" type="number" min="0.1" step="0.1" required />
+            </div>
+
+            <div class="form-field">
+              <label for="parcelDescription">Parcel Description</label>
+              <input id="parcelDescription" v-model="form.parcelDescription" type="text" />
             </div>
 
             <div class="form-field">
@@ -157,9 +201,9 @@ router.push('/orders')
           <div class="form-field full-width">
             <label for="specialInstructions">Special Instructions</label>
             <textarea
-              id="specialInstructions"
-              v-model="form.specialInstructions"
-              rows="3"
+                id="specialInstructions"
+                v-model="form.specialInstructions"
+                rows="3"
             ></textarea>
           </div>
 
@@ -177,14 +221,14 @@ router.push('/orders')
 </template>
 
 <style scoped>
-.form-page { 
+.form-page {
   flex: 1;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 3rem 1.5rem;
-      }
+}
 
 .form-card {
   position: relative;
@@ -193,7 +237,7 @@ router.push('/orders')
   background: var(--primary-container);
   border: 1px solid var(--outline);
   border-radius: 8px;
-    /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.05); */
+  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.05); */
   overflow: hidden;
 }
 
@@ -319,16 +363,16 @@ router.push('/orders')
 }
 
 
-/* label { 
+/* label {
     display: flex;
      flex-direction: column;
-      gap: 0.3rem; 
+      gap: 0.3rem;
       } */
-/* button { 
+/* button {
     padding: 0.6rem;
      background: var(--admin-primary);
-      color: #fff; 
-      border: none; 
+      color: #fff;
+      border: none;
       border-radius: 6px; } */
 
 .btn-cancel {

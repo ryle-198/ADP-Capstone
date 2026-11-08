@@ -4,13 +4,12 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.DeliveryOrders;
 import za.ac.cput.factory.CustomerFactory;
 import za.ac.cput.factory.DeliveryOrdersFactory;
 import za.ac.cput.repository.CustomerRepo.CustomerRepository;
+import za.ac.cput.service.DeliveryOrders.DeliveryOrdersService;
 
 import java.time.LocalDate;
 import java.time.Month;

@@ -10,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.*;
 import za.ac.cput.factory.*;
+import za.ac.cput.service.Customer.CustomerService;
+import za.ac.cput.service.DeliveryOrders.DeliveryOrdersService;
+import za.ac.cput.service.Driver.DriverService;
+import za.ac.cput.service.Route.RouteService;
+import za.ac.cput.service.Shipment.ShipmentService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

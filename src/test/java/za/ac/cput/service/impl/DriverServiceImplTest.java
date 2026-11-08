@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Driver;
 import za.ac.cput.factory.DriverFactory;
-import za.ac.cput.service.DriverService;
+import za.ac.cput.service.Driver.DriverService;
 
 import java.util.UUID;
 

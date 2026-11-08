@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import './style.css'
 import './styles/admin-theme.css'
+import './styles/admin-extras.css'
+import './styles/portal-theme.css'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import App from './App.vue'
 import router from './router'

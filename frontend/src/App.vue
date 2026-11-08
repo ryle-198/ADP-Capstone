@@ -18,11 +18,7 @@ const showSidebar = computed(()=>{
     <main class="app-content">
         <RouterView />
     </main>
-</div>    
-<!-- <SidePanel/> -->
-<!-- <Home/> -->
-<!-- <Login/> -->
-<!-- <RouterView /> -->
+</div>
 </template>
 
 <style scoped>

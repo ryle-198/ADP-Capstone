@@ -10,7 +10,7 @@ Date: 2026
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Vehicle;
-import za.ac.cput.service.VehicleService;
+import za.ac.cput.service.Vehicle.VehicleService;
 
 import java.util.List;
 

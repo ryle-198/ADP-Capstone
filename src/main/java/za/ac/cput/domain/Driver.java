@@ -42,7 +42,7 @@ public class Driver {
     @PrePersist
     public void generateId(){
         if(this.id == null || this.id.isBlank()){
-            this.id = UUID.randomUUID().toString();
+            this.id = "DRV-"+UUID.randomUUID().toString().substring(0,8).toUpperCase();
         }
     }
 

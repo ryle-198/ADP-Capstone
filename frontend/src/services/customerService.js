@@ -20,6 +20,8 @@ export default {
 
     delete(id) {
         return api.delete(`/customer/delete/${id}`)
+    },
+    createWithLogin(customer) {
+        return api.post('/customer/createWithLogin', customer)
     }
-
 }

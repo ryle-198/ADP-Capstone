@@ -1,0 +1,255 @@
+.admin-page .muted-text {
+    color: var(--on-surface-variant);
+}
+
+.admin-page .mono-id {
+    font-family: var(--font-mono, ui-monospace, 'SFMono-Regular', Consolas, monospace);
+    font-size: 0.8rem;
+}
+
+/*Dashboard: panels*/
+
+.admin-page .panel {
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 6px;
+}
+
+.admin-page .panel-head {
+    padding: 0.7rem 1rem;
+    background: var(--surface-container-highest);
+    border-bottom: 1px solid var(--outline-variant);
+    border-radius: 5px 5px 0 0;
+}
+
+.admin-page .panel-head h2 {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+}
+
+.admin-page .panel-body {
+    padding: 1rem;
+}
+
+.admin-page .panel-empty {
+    margin: 0;
+    padding: 1rem;
+    font-size: 0.85rem;
+    color: var(--on-surface-variant);
+}
+
+.admin-page .panel-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.65rem 1rem;
+    border-top: 1px solid var(--outline-variant);
+    font-size: 0.85rem;
+    color: var(--on-surface-variant);
+}
+
+.admin-page .dash-grid {
+    display: grid;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.admin-page .dash-grid.two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.admin-page .dash-grid.three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/*  Dashboard:record counts*/
+
+.admin-page .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1px;
+    margin-bottom: 1.25rem;
+    background: var(--outline-variant);
+    border: 1px solid var(--outline-variant);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.admin-page .stat {
+    padding: 0.9rem 1.1rem;
+    background: var(--surface-container);
+}
+
+.admin-page .stat-label,
+.admin-page .figure-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+}
+
+.admin-page .stat-value,
+.admin-page .figure-value {
+    margin-top: 0.25rem;
+    font-family: var(--font-mono, ui-monospace, 'SFMono-Regular', Consolas, monospace);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+    color: var(--on-surface);
+}
+
+.admin-page .stat-value {
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+/* Dashboard: revenue and fleet  */
+
+.admin-page .figures {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+}
+
+.admin-page .figure-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.admin-page .figure-value.paid        { color: var(--secondary); }
+.admin-page .figure-value.outstanding { color: var(--tertiary); }
+
+.admin-page .meter {
+    display: flex;
+    height: 8px;
+    background: var(--surface-container-lowest);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.admin-page .meter > span {
+    display: block;
+    height: 100%;
+}
+
+.admin-page .seg-paid,
+.admin-page .seg-avail {
+    background: var(--secondary-container);
+}
+
+.admin-page .seg-out {
+    background: var(--tertiary-container);
+}
+
+.admin-page .fleet-row + .fleet-row {
+    margin-top: 1rem;
+}
+
+.admin-page .fleet-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.875rem;
+}
+
+.admin-page .fleet-top .num {
+    font-family: var(--font-mono, ui-monospace, 'SFMono-Regular', Consolas, monospace);
+    font-size: 0.8rem;
+    color: var(--on-surface-variant);
+}
+
+/* Dashboard: breakdown lists  */
+
+.admin-page .count-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-page .count-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 1rem;
+    border-bottom: 1px solid rgba(66, 71, 84, 0.5);
+    font-size: 0.875rem;
+}
+
+.admin-page .count-list li:last-child {
+    border-bottom: none;
+}
+
+.admin-page .count-list .n {
+    font-family: var(--font-mono, ui-monospace, 'SFMono-Regular', Consolas, monospace);
+    font-variant-numeric: tabular-nums;
+}
+
+/* Users page */
+
+.admin-page .toolbar-count {
+    margin-left: auto;
+    font-size: 0.85rem;
+    color: var(--on-surface-variant);
+}
+
+.admin-page td.actions {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.admin-page .btn-sm {
+    padding: 0.3rem 0.85rem;
+    font-size: 0.8rem;
+}
+
+.admin-page .empty-row td {
+    padding: 2rem 1rem;
+}
+
+.admin-page tr.row-disabled td:not(.actions) {
+    color: var(--on-surface-variant);
+}
+
+.admin-page .badge-neutral {
+    background: rgba(194, 198, 214, 0.1);
+    color: var(--on-surface-variant);
+    border: 1px solid rgba(194, 198, 214, 0.25);
+}
+
+/*Small screens */
+
+@media (max-width: 1000px) {
+    .admin-page .dash-grid.three {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 800px) {
+    .admin-page .stat-strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .admin-page .dash-grid.two,
+    .admin-page .dash-grid.three {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .admin-page .stat-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-page .figures {
+        grid-template-columns: 1fr;
+    }
+}

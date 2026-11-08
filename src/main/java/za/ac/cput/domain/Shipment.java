@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 /*
 Shipment.java
 Shipment module class
@@ -74,6 +76,13 @@ public class Shipment {
         this.destinationAddress = builder.destinationAddress;
         this.status = builder.status;
         this.fragile = builder.fragile;
+    }
+
+    @PrePersist
+    public void generateId(){
+        if(this.shipmentId == null || this.shipmentId.isBlank()){
+            this.shipmentId = "SHP-" + UUID.randomUUID().toString().substring(0,8).toUpperCase();
+        }
     }
 
     public String getShipmentId() {

@@ -17,4 +17,6 @@ Date: 2026
  */
 @Repository
 public interface ShipmentRepository extends JpaRepository<Shipment, String> {
+    List<Shipment> findByOrder_OrderId(String orderId);
+    List<Shipment> findByRoute_RouteId(String routeId);
 }

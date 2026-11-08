@@ -7,12 +7,9 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.DeliveryOrders;
 import za.ac.cput.factory.CustomerFactory;
-import za.ac.cput.factory.DeliveryOrdersFactory;
+import za.ac.cput.service.Customer.CustomerService;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 

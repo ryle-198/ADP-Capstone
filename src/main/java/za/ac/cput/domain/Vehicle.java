@@ -13,6 +13,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "vehicle")
@@ -85,6 +86,12 @@ public class Vehicle {
         this.routes = builder.routes;
     }
 
+    @PrePersist
+    public void generateId(){
+        if(this.vehicleId==null || this.vehicleId.isBlank()){
+            this.vehicleId = "VEH-" + UUID.randomUUID().toString().substring(0,8).toUpperCase();
+        }
+    }
 
     public String getVehicleId() {
         return vehicleId;

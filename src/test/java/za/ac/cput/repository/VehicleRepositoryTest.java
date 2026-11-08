@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Vehicle;
 import za.ac.cput.factory.VehicleFactory;
-import za.ac.cput.repository.VehicleRepo.IVehicleRepository;
+import za.ac.cput.repository.VehicleRepo.VehicleRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,7 +27,7 @@ Date: 2026
 class VehicleRepositoryTest {
 
     @Autowired
-    private IVehicleRepository repository;
+    private VehicleRepository repository;
 
     private Vehicle createTestVehicle() {
 

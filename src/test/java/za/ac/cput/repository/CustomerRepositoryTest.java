@@ -8,7 +8,7 @@
 //import za.ac.cput.factory.CustomerFactory;
 //import za.ac.cput.factory.DeliveryOrdersFactory;
 //import za.ac.cput.repository.CustomerRepo.CustomerRepository;
-//import za.ac.cput.service.CustomerService;
+//import za.ac.cput.service.Customer.CustomerService;
 //
 //import java.time.LocalDate;
 //import java.time.Month;

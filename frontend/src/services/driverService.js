@@ -14,5 +14,8 @@ export default {
     },
     delete(id) {
         return api.delete(`/driver/delete/${id}`)
+    },
+    createWithLogin(driver) {
+        return api.post('/driver/createWithLogin', driver)
     }
 }

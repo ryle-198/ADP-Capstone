@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.DeliveryOrders;
-import za.ac.cput.service.DeliveryOrdersService;
+import za.ac.cput.service.DeliveryOrders.DeliveryOrdersService;
 
 import java.util.List;
 

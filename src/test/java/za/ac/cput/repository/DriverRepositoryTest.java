@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Driver;
 import za.ac.cput.factory.DriverFactory;
-import za.ac.cput.repository.DriverRepo.IDriverRepository;
+import za.ac.cput.repository.DriverRepo.DriverRepository;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.MethodName.class)
 public class DriverRepositoryTest {
     @Autowired
-    private IDriverRepository repository;
+    private DriverRepository repository;
 
     private Driver driver;
 

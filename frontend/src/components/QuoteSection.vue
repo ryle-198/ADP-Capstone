@@ -1,5 +1,6 @@
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
+import api from '../services/api'
 
 const quote = reactive({
   from: '',
@@ -11,14 +12,16 @@ const quote = reactive({
   unit: 'cm'
 })
 
-const addPackage = () => {
-  console.log('Add another package')
-}
+const result = ref(null)
+const quoteError = ref('')
 
+//price depends on weight only (R50 base + R10 per kg)
 const calculateRate = () => {
-  console.log('Quote data:', quote)
-
-  // API call will go here later.
+  result.value = null
+  quoteError.value = ''
+  api.post('/quote', { weight: quote.weight })
+      .then((res) => { result.value = res.data })
+      .catch(() => { quoteError.value = 'Enter a weight above 0 to get a price.' })
 }
 </script>
 
@@ -89,15 +92,15 @@ const calculateRate = () => {
 
 
         <form
-          class="quote-form"
-          @submit.prevent="calculateRate"
+            class="quote-form"
+            @submit.prevent="calculateRate"
         >
 
           <div class="form-group">
 
             <label
-              for="quote-from"
-              class="form-label"
+                for="quote-from"
+                class="form-label"
             >
               Origin (From)
             </label>
@@ -109,11 +112,11 @@ const calculateRate = () => {
               </span>
 
               <input
-                id="quote-from"
-                v-model="quote.from"
-                class="form-input"
-                type="text"
-                placeholder="City or ZIP code"
+                  id="quote-from"
+                  v-model="quote.from"
+                  class="form-input"
+                  type="text"
+                  placeholder="City or ZIP code"
               />
 
             </div>
@@ -123,8 +126,8 @@ const calculateRate = () => {
           <div class="form-group">
 
             <label
-              for="quote-to"
-              class="form-label"
+                for="quote-to"
+                class="form-label"
             >
               Destination (To)
             </label>
@@ -136,11 +139,11 @@ const calculateRate = () => {
               </span>
 
               <input
-                id="quote-to"
-                v-model="quote.to"
-                class="form-input"
-                type="text"
-                placeholder="City or ZIP code"
+                  id="quote-to"
+                  v-model="quote.to"
+                  class="form-input"
+                  type="text"
+                  placeholder="City or ZIP code"
               />
 
             </div>
@@ -166,60 +169,15 @@ const calculateRate = () => {
                   </span>
 
                   <input
-                    v-model="quote.weight"
-                    class="form-input"
-                    type="number"
-                    placeholder="Weight (kg)"
+                      v-model="quote.weight"
+                      class="form-input"
+                      type="number"
+                      min="0.1"
+                      step="0.1"
+                      placeholder="Weight (kg)"
                   />
 
                 </div>
-
-              </div>
-
-
-              <div class="dimensions">
-
-                <input
-                  v-model="quote.length"
-                  class="form-input dimension-input"
-                  type="number"
-                  placeholder="L"
-                />
-
-                <span class="dimension-separator">
-                  ×
-                </span>
-
-                <input
-                  v-model="quote.width"
-                  class="form-input dimension-input"
-                  type="number"
-                  placeholder="W"
-                />
-
-                <span class="dimension-separator">
-                  ×
-                </span>
-
-                <input
-                  v-model="quote.height"
-                  class="form-input dimension-input"
-                  type="number"
-                  placeholder="H"
-                />
-
-                <select
-                  v-model="quote.unit"
-                  class="form-select"
-                >
-                  <option value="cm">
-                    cm
-                  </option>
-
-                  <option value="in">
-                    inch
-                  </option>
-                </select>
 
               </div>
 
@@ -231,17 +189,11 @@ const calculateRate = () => {
           <!-- Actions -->
           <div class="form-actions">
 
-            <button
-              type="button"
-              class="add-package"
-              @click="addPackage"
-            >
-              + Add another package
-            </button>
+            <span></span>
 
             <button
-              type="submit"
-              class="calculate-button"
+                type="submit"
+                class="calculate-button"
             >
               Calculate Rate
 
@@ -251,6 +203,14 @@ const calculateRate = () => {
             </button>
 
           </div>
+
+          <div v-if="result" class="form-group full-width quote-result">
+            <strong>Estimated price: R{{ result.price.toFixed(2) }}</strong>
+            <span>R{{ result.baseFee }} base + R{{ result.ratePerKg }} per kg for {{ result.weightKg }} kg</span>
+            <RouterLink to="/register" class="quote-cta">Create an account to ship</RouterLink>
+          </div>
+
+          <p v-if="quoteError" class="form-group full-width quote-error">{{ quoteError }}</p>
 
         </form>
 
@@ -329,9 +289,7 @@ const calculateRate = () => {
 }
 
 
-/* =========================================================
-   QUOTE CARD
-   ========================================================= */
+/* Quote Card */
 
 .quote-card {
   padding: 32px;
@@ -342,7 +300,7 @@ const calculateRate = () => {
   border-radius: 8px;
 
   box-shadow:
-    0 4px 20px rgba(42, 42, 61, 0.08);
+      0 4px 20px rgba(42, 42, 61, 0.08);
 }
 
 .quote-header {
@@ -383,9 +341,7 @@ const calculateRate = () => {
 }
 
 
-/* =========================================================
-   FORM
-   ========================================================= */
+/* Form */
 
 .quote-form {
   display: grid;
@@ -538,5 +494,27 @@ const calculateRate = () => {
 
 .calculate-button:hover {
   background: var(--primary);
+}
+
+.quote-result {
+  padding: 16px;
+  border-radius: 4px;
+  background: var(--surface-container-low);
+  color: var(--on-surface);
+}
+
+.quote-result strong {
+  color: var(--primary);
+  font-size: 20px;
+}
+
+.quote-cta {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.quote-error {
+  margin: 0;
+  color: var(--error);
 }
 </style>

@@ -3,11 +3,12 @@ package za.ac.cput.service;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import za.ac.cput.domain.Driver;
 import za.ac.cput.domain.Route;
 import za.ac.cput.factory.DriverFactory;
 import za.ac.cput.factory.RouteFactory;
+import za.ac.cput.service.Driver.DriverService;
+import za.ac.cput.service.Route.RouteService;
 
 import java.util.List;
 import java.util.UUID;
